@@ -17,6 +17,3 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  assets:
-    - assets/embedded_items.json
-    - assets/multiple_rich_text_content.json
