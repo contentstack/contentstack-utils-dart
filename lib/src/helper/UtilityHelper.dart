@@ -1,17 +1,27 @@
-
 import 'dart:convert';
+import 'dart:html';
 
-class UtilityHelper{
+import 'package:html/dom.dart';
 
-  static bool isValidJson(jsonString){
+class UtilityHelper {
+  static bool isValidJson(jsonString) {
     try {
-      if (jsonString is String){
+      if (jsonString is String) {
         json.decode(jsonString) as Map<dynamic, dynamic>;
       }
       return true;
     } on FormatException catch (e) {
-      print('The provided string is not valid JSON ${e.message}');
+      print('The provided file is not valid JSON ${e.message}');
       return false;
+    }
+  }
+
+  static String metadataText(container) {
+    if (container.isNotEmpty) {
+      if (container[0].nodes[0] is Text) {
+        return container[0].nodes[0].toString();
+      }
+      return '';
     }
   }
 }

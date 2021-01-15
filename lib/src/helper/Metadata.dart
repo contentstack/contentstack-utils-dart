@@ -1,4 +1,7 @@
-import 'package:contentstack_utils/src/embedded/StyleType.dart';
+import 'dart:collection';
+import 'dart:html';
+
+import 'package:html/dom.dart';
 
 class Metadata {
   String text;
@@ -9,19 +12,22 @@ class Metadata {
   /* contentTypeUid of embedded object*/
   String contentTypeUid;
   /* styleTypeUid of embedded object*/
-  StyleType styleType;
+  String styleType;
   /* Outer HTML of embedded object*/
   String outerHTML;
   /* attributes of embedded object*/
-  //Attributes attributes;
+  LinkedHashMap<dynamic, String> attributes;
 
-  Metadata(
-      {this.text,
-      this.itemType,
-      this.itemUid,
-      this.contentTypeUid,
-      this.styleType,
-      this.outerHTML});
+  Metadata.element(Element element) {
+    text = element.text;
+    itemType = element.attributes['type'];
+    itemUid = element.attributes['data-sys-asset-uid'] ??
+        element.attributes['data-sys-entry-uid'];
+    contentTypeUid = element.attributes['data-sys-content-type-uid'];
+    styleType = element.attributes['sys-style-type'];
+    outerHTML = element.outerHtml;
+    attributes = element.attributes;
+  }
 
   String get getText {
     return text;
@@ -39,7 +45,7 @@ class Metadata {
     return contentTypeUid;
   }
 
-  StyleType get getStyleType {
+  String get getStyleType {
     return styleType;
   }
 
