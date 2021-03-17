@@ -1,5 +1,6 @@
-# A Contentstack-Utils library for Dart developers.
+# A Contentstack-Utils library for Dart developers
 
+![Coverage](https://raw.githubusercontent.com/contentstack/contentstack-utils-python/master/coverage_badge.svg?sanitize=true)
 
 ## Contentstack Dart Utils SDK
 
@@ -10,28 +11,33 @@ Given below is the detailed guide and helpful resources to get started with our 
 ## Prerequisite
 
 Latest Android Studio or IntelliJ IDEA or Visual Studio Code
-Setup and Installation
-We need to install Dart 
-Dependency
+
+- Setup and Installation
+
+- We need to install Dart
+
+## Dependency
 
 Add the following to your pom.xml file:
 
 ```dart
-contentstack-util: ^0.0.1
+    contentstack-util: any
 ```
 
 Note: If you are using Contentstack Dart SDK we have already imported contentstack-utils into it.
 
 ```dart
-contentstack: ^0.1.1
+    contentstack: any
 ```
 
 ## Usage
+
 Create Render Option:
 To render Embedded objects within RTE create renderOption as follows:
 
 ```dart
 Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
+    
     switch (metadata.getStyleType()) {
         case BLOCK:
            String title = embeddedObject.getString("title");
@@ -48,7 +54,7 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
            String mlLinked = embeddedObject.getString("multi_line");
            return "<p>" + titleLinked + "</p><span>" + mlLinked + "</span>";
        
-        case DISPLAYABLE:
+        case DISPLAY:
            String titleDiplayable = embeddedObject.getString("title");
            String mlDiplayable = embeddedObject.getString("multi_line");
            return "<p>" + titleDiplayable + "</p><span>" + mlDiplayable + "</span>";
@@ -59,16 +65,16 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
 });
 ```
 
-
-## Using Contentstack Utils from Contentstack Dart SDK:
+## Using Contentstack Utils from Contentstack Dart SDK
 
 **Fetch entry/entries including embedded using Contentstack SDK:**
 
 ```dart
-import 'package:contentstack/contentstack.dart' as contentstack;
-final stack = contentstack.Stack(apiKey, deliveryToken, environment);
-final entry = stack.contentType('contentTypeUid').entry(entryUid: 'entryUid');
-entry..includeEmbeddedItems();
+    import 'package:contentstack/contentstack.dart' as contentstack;
+    
+    final stack = contentstack.Stack(apiKey, deliveryToken, environment);
+    final entry = stack.contentType('contentTypeUid').entry(entryUid: 'entryUid');
+    entry..includeEmbeddedItems();
     await entry.fetch().then((response) {
         print(response.toString());
     }).catchError((error) {
@@ -76,15 +82,14 @@ entry..includeEmbeddedItems();
     });
 ```
 
-**Fetch multiple Entries including embedded object and render RTE fields**
-
+**Fetch multiple entries including embedded object and render RTE fields**
 
 ```dart
-import 'package:contentstack/contentstack.dart' as contentstack;
+    import 'package:contentstack/contentstack.dart' as contentstack;
 
-final stack = contentstack.Stack(apiKey, deliveryToken, environment);
-final query = stack.contentType('contentTypeUid').entry().query();
-await query.find().then((response) {
+    final stack = contentstack.Stack(apiKey, deliveryToken, environment);
+    final query = stack.contentType('contentTypeUid').entry().query();
+    await query.find().then((response) {
         print(response.toString());
     }).catchError((error) {
         print(error.message.toString());
@@ -94,7 +99,6 @@ await query.find().then((response) {
 Fetch entry/entries and Render RTE using GraphQL and ‘contentstack utils’ SDK
 
 **GraphQL specification is not yet finalized.**
-
 
 ## Features and bugs
 

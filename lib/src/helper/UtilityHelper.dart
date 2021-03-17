@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:html/dom.dart';
 
@@ -23,5 +22,6 @@ class UtilityHelper {
       }
       return '';
     }
+    return '';
   }
 }

@@ -1,3 +1,1 @@
-class ItemType{
-  
-}
+enum ItemType { asset, entry }

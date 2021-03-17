@@ -2,12 +2,11 @@ library contentstack_utils;
 
 import 'dart:collection';
 
-import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:html/parser.dart' show parse;
-import 'package:html/parser.dart';
 
 import 'package:contentstack_utils/src/helper/Metadata.dart';
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
+import 'package:contentstack_utils/src/model/Option.dart';
 
 export 'src/embedded/StyleType.dart';
 export 'src/helper/Metadata.dart';
@@ -80,14 +79,12 @@ class Utils {
     }
   }
 
-//invoke
-
-  static Object renderContent(rteString, Map embedObject, Option option) {
+  static Object renderContent(rteString, Map embedObject, Option option) async {
     if (rteString is String) {
       var available = embedObject.containsKey('_embedded_items');
       if (available) {
         var jsonArray = embedObject['_embedded_items'];
-        _getEmbeddedItems(rteString, (metadata) {
+        await _getEmbeddedItems(rteString, (metadata) {
           var filteredContent = _findEmbeddedItems(jsonArray, metadata);
           if (filteredContent != null) {
             var stringData = option.renderOption(filteredContent, metadata);
@@ -116,7 +113,6 @@ class Utils {
           .firstWhere((element) => element['uid'] == metadata.getItemUid);
       return filteredContent;
     }
-
     return null;
   }
 

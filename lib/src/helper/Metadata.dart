@@ -1,6 +1,4 @@
 import 'dart:collection';
-import 'dart:html';
-
 import 'package:html/dom.dart';
 
 class Metadata {
