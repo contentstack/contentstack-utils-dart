@@ -1,5 +1,5 @@
 import 'package:contentstack_utils/src/embedded/ItemType.dart';
-import 'package:contentstack_utils/Utils.dart';
+import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:logger/logger.dart';
 import 'package:test/test.dart';

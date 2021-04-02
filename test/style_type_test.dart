@@ -1,4 +1,4 @@
-import 'package:contentstack_utils/Utils.dart';
+import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

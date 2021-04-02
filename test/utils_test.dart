@@ -6,7 +6,7 @@ import 'dart:io' show File;
 
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
-import 'package:contentstack_utils/Utils.dart';
+import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
