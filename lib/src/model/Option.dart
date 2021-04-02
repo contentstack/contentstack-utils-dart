@@ -1,6 +1,7 @@
 import 'package:contentstack_utils/Utils.dart';
 
 class Option {
+
   Option.entry(Map entry);
 
   static String _findTitleOrUid(Map embeddedObject) {

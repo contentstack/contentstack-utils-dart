@@ -6,22 +6,21 @@ import 'dart:io' show File;
 
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
-import 'package:contentstack_utils/utils.dart';
+import 'package:contentstack_utils/Utils.dart';
+import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // html string for entry
+  var logger = Logger(printer: PrettyPrinter());
+
   const __stringHtmlEntry =
-      // ignore: prefer_single_quotes
-      // ignore: avoid_escaping_inner_quotes
       '<p>Global multiple 2<span class=\"redactor-component embedded-entry inline-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"bltba476c60baacb442\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" data-sys-can-edit=\"true\" sys-style-type=\"inline\" type=\"entry\"></span></p>';
 
   test('test file decoder is woring fine', () {
     final _entryArray =
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _item = _entryArray['entries'][0];
-    // ignore: avoid_print
-    print(_item);
+    logger.i(_item);
     expect('Entry one', _item['title']);
   });
 
@@ -52,10 +51,50 @@ void main() {
     final rteKeys = [
       'global_rich.modular_blocks.rich_in_modular.rich_text_editor'
     ];
-    // ignore: avoid_print
-    print(rteKeys);
+    logger.i(rteKeys);
     final result = Utils.renderContent(__stringHtmlEntry, _item, option);
-    // ignore: avoid_print
-    print(result);
+    logger.i(result);
+  });
+
+  test('utils.render pass invalid json to cover exception', () {
+    final _entryArray =
+        json.decode(File('test/mock/embedded_items.json').readAsStringSync());
+    final _item = _entryArray['entries'][0];
+    final optionCallback = Option.entry(_item);
+    final rteKeys = [
+      'global_rich.modular_blocks.rich_in_modular.rich_text_editor'
+    ];
+    Utils.render('_item', rteKeys, optionCallback);
+  });
+
+  test('utils.render with list of objects', () {
+    final _entryArray =
+        json.decode(File('test/mock/embedded_items.json').readAsStringSync());
+    final _items = _entryArray['entries'];
+    final optionCallback = Option.entry(_items[0]);
+    final rteKeys = [
+      'global_rich.modular_blocks.rich_in_modular.rich_text_editor'
+    ];
+    Utils.render(_items, rteKeys, optionCallback);
+    expect(_items, isA<List>());
+  });
+
+  test('utils.render inside render content', () {
+    final _entryArray =
+        json.decode(File('test/mock/embedded_items.json').readAsStringSync());
+    final _items = _entryArray['entries'][0];
+    final optionCallback = Option.entry(_items);
+    final rteKeys = [
+      'global_rich.modular_blocks.rich_in_modular.rich_text_editor'
+    ];
+    Utils.render(_items, rteKeys, optionCallback);
+  });
+
+  test('options functions', () {
+    final _entryArray =
+        json.decode(File('test/mock/embedded_items.json').readAsStringSync());
+    final _embedded_object = _entryArray['entries'][0];
+    final optionCallback = Option.entry(_embedded_object);
+    //optionCallback.renderOption(_embedded_object, 'metadata');
   });
 }

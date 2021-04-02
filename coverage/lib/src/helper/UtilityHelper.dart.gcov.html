@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">2</td>
-            <td class="headerCovTableEntry">9</td>
-            <td class="headerCovTableEntryLo">22.2 %</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2021-04-01 22:07:05</td>
+            <td class="headerValue">2021-04-02 02:16:57</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">0</td>
@@ -61,32 +61,33 @@
 <pre class="sourceHeading">          Line data    Source code</pre>
 <pre class="source">
 <a name="1"><span class="lineNum">       1 </span>            : import 'dart:convert';</a>
-<a name="2"><span class="lineNum">       2 </span>            : </a>
-<a name="3"><span class="lineNum">       3 </span>            : import 'package:html/dom.dart';</a>
-<a name="4"><span class="lineNum">       4 </span>            : </a>
-<a name="5"><span class="lineNum">       5 </span>            : class UtilityHelper {</a>
-<a name="6"><span class="lineNum">       6 </span><span class="lineCov">          1 :   static bool isValidJson(jsonString) {</span></a>
-<a name="7"><span class="lineNum">       7 </span>            :     try {</a>
-<a name="8"><span class="lineNum">       8 </span><span class="lineCov">          1 :       if (jsonString is String) {</span></a>
-<a name="9"><span class="lineNum">       9 </span><span class="lineNoCov">          0 :         json.decode(jsonString) as Map&lt;dynamic, dynamic&gt;;</span></a>
-<a name="10"><span class="lineNum">      10 </span>            :       }</a>
-<a name="11"><span class="lineNum">      11 </span>            :       return true;</a>
-<a name="12"><span class="lineNum">      12 </span><span class="lineNoCov">          0 :     } on FormatException catch (e) {</span></a>
-<a name="13"><span class="lineNum">      13 </span><span class="lineNoCov">          0 :       print('The provided file is not valid JSON ${e.message}');</span></a>
-<a name="14"><span class="lineNum">      14 </span>            :       return false;</a>
-<a name="15"><span class="lineNum">      15 </span>            :     }</a>
-<a name="16"><span class="lineNum">      16 </span>            :   }</a>
-<a name="17"><span class="lineNum">      17 </span>            : </a>
-<a name="18"><span class="lineNum">      18 </span><span class="lineNoCov">          0 :   static String metadataText(container) {</span></a>
-<a name="19"><span class="lineNum">      19 </span><span class="lineNoCov">          0 :     if (container.isNotEmpty) {</span></a>
-<a name="20"><span class="lineNum">      20 </span><span class="lineNoCov">          0 :       if (container[0].nodes[0] is Text) {</span></a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineNoCov">          0 :         return container[0].nodes[0].toString();</span></a>
-<a name="22"><span class="lineNum">      22 </span>            :       }</a>
-<a name="23"><span class="lineNum">      23 </span>            :       return '';</a>
-<a name="24"><span class="lineNum">      24 </span>            :     }</a>
-<a name="25"><span class="lineNum">      25 </span>            :     return '';</a>
-<a name="26"><span class="lineNum">      26 </span>            :   }</a>
-<a name="27"><span class="lineNum">      27 </span>            : }</a>
+<a name="2"><span class="lineNum">       2 </span>            : import 'package:logger/logger.dart';</a>
+<a name="3"><span class="lineNum">       3 </span>            : </a>
+<a name="4"><span class="lineNum">       4 </span><span class="lineCov">          4 : var logger = Logger(printer: PrettyPrinter());</span></a>
+<a name="5"><span class="lineNum">       5 </span>            : </a>
+<a name="6"><span class="lineNum">       6 </span>            : class UtilityHelper {</a>
+<a name="7"><span class="lineNum">       7 </span><span class="lineCov">          1 :   static bool isValidJson(jsonString) {</span></a>
+<a name="8"><span class="lineNum">       8 </span>            :     try {</a>
+<a name="9"><span class="lineNum">       9 </span><span class="lineCov">          1 :       if (jsonString is String) {</span></a>
+<a name="10"><span class="lineNum">      10 </span><span class="lineCov">          1 :         json.decode(jsonString) as Map&lt;dynamic, dynamic&gt;;</span></a>
+<a name="11"><span class="lineNum">      11 </span>            :       }</a>
+<a name="12"><span class="lineNum">      12 </span>            :       return true;</a>
+<a name="13"><span class="lineNum">      13 </span><span class="lineCov">          1 :     } on FormatException catch (e) {</span></a>
+<a name="14"><span class="lineNum">      14 </span><span class="lineCov">          4 :       logger.w('The provided file is not valid JSON ${e.message}');</span></a>
+<a name="15"><span class="lineNum">      15 </span>            :       return false;</a>
+<a name="16"><span class="lineNum">      16 </span>            :     }</a>
+<a name="17"><span class="lineNum">      17 </span>            :   }</a>
+<a name="18"><span class="lineNum">      18 </span>            : </a>
+<a name="19"><span class="lineNum">      19 </span>            :   // static String metadataText(container) {</a>
+<a name="20"><span class="lineNum">      20 </span>            :   //   if (container.isNotEmpty) {</a>
+<a name="21"><span class="lineNum">      21 </span>            :   //     if (container[0].nodes[0] is Text) {</a>
+<a name="22"><span class="lineNum">      22 </span>            :   //       return container[0].nodes[0].toString();</a>
+<a name="23"><span class="lineNum">      23 </span>            :   //     }</a>
+<a name="24"><span class="lineNum">      24 </span>            :   //     return '';</a>
+<a name="25"><span class="lineNum">      25 </span>            :   //   }</a>
+<a name="26"><span class="lineNum">      26 </span>            :   //   return '';</a>
+<a name="27"><span class="lineNum">      27 </span>            :   // }</a>
+<a name="28"><span class="lineNum">      28 </span>            : }</a>
 </pre>
       </td>
     </tr>

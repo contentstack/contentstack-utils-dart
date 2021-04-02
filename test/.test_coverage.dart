@@ -4,11 +4,13 @@
 import 'item_type_test.dart' as item_type_test;
 import 'metadata_test.dart' as metadata_test;
 import 'style_type_test.dart' as style_type_test;
+import 'utility_helper_test.dart' as utility_helper_test;
 import 'utils_test.dart' as utils_test;
 
 void main() {
   utils_test.main();
   metadata_test.main();
+  utility_helper_test.main();
   item_type_test.main();
   style_type_test.main();
 }

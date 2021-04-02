@@ -3,6 +3,7 @@ library contentstack_utils;
 import 'dart:collection';
 
 import 'package:html/parser.dart' show parse;
+import 'package:logger/logger.dart';
 
 import 'package:contentstack_utils/src/helper/Metadata.dart';
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
@@ -11,9 +12,12 @@ import 'package:contentstack_utils/src/model/Option.dart';
 export 'src/embedded/StyleType.dart';
 export 'src/helper/Metadata.dart';
 
+var logger = Logger(printer: PrettyPrinter());
+
 class Utils {
   static void render(jsonObject, List<String> rteKeys, Option option) {
     if (!UtilityHelper.isValidJson(jsonObject)) {
+      logger.i('Invalid file, Can\'t process the json file');
       FormatException('Invalid file, Can\'t process the json file');
     }
 
@@ -29,6 +33,7 @@ class Utils {
         if (rteKeys != null && rteKeys.isNotEmpty) {
           for (var path in rteKeys) {
             _findContent(jsonObject, path, (rteContent) {
+              logger.i('rteContent $rteContent');
               return renderContent(rteContent, jsonObject, option);
             });
           }
@@ -85,6 +90,7 @@ class Utils {
       if (available) {
         var jsonArray = embedObject['_embedded_items'];
         await _getEmbeddedItems(rteString, (metadata) {
+          logger.i('metadata $metadata');
           var filteredContent = _findEmbeddedItems(jsonArray, metadata);
           if (filteredContent != null) {
             var stringData = option.renderOption(filteredContent, metadata);

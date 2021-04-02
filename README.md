@@ -1,6 +1,6 @@
 # A Contentstack-Utils library for Dart developers
 
-![Coverage](https://raw.githubusercontent.com/contentstack/contentstack-utils-python/master/coverage_badge.svg?sanitize=true)
+![Coverage](https://raw.github.com/contentstack/contentstack-utils-python/master/coverage_badge.svg?sanitize=true)
 
 ## Contentstack Dart Utils SDK
 
