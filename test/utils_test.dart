@@ -94,7 +94,10 @@ void main() {
     final _entryArray =
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _embedded_object = _entryArray['entries'][0];
-    final optionCallback = Option.entry(_embedded_object);
-    //optionCallback.renderOption(_embedded_object, 'metadata');
+    prints(_embedded_object);
+    logger.d(_embedded_object);
+    //final optionCallback = Option.entry(_embedded_object);
+    //const rteKeys = [ 'global_rich.modular_blocks.rich_in_modular.rich_text_editor'];
+    //Utils.render(_embedded_object, rteKeys, )
   });
 }

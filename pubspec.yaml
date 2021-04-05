@@ -1,6 +1,6 @@
 name: contentstack_utils
 description: Utils package for Contentstack-dart
-version: 0.1.0
+version: 1.0.0
 homepage: https://www.contentstack.com
 
 environment:

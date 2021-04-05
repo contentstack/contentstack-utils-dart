@@ -1,5 +1,13 @@
 # Changelog
 
+## v1.0.0
+
+Initial release
+
+___________________
+
 ## v0.1.0
 
-Initial release for contentstack-dart Utils package
+Beta release for contentstack-dart Utils package
+
+___________________

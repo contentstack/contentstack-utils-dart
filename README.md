@@ -67,7 +67,7 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
 
 ## Using Contentstack Utils from Contentstack Dart SDK
 
-**Fetch entry/entries including embedded using Contentstack SDK:**
+### Fetch entry/entries including embedded using Contentstack SDK
 
 ```dart
     import 'package:contentstack/contentstack.dart' as contentstack;
@@ -77,12 +77,17 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
     entry..includeEmbeddedItems();
     await entry.fetch().then((response) {
         print(response.toString());
+        const keyPath = [
+            "rich_text_editor", "global_rich_multiple.group.rich_text_editor"
+        ]
+        final jsonObject = response['entry'];
+        Utils.render(jsonObject, keyPath, Option);
     }).catchError((error) {
         print(error.message.toString());
     });
 ```
 
-**Fetch multiple entries including embedded object and render RTE fields**
+### Fetch multiple entries including embedded object and render RTE fields
 
 ```dart
     import 'package:contentstack/contentstack.dart' as contentstack;
@@ -91,6 +96,13 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
     final query = stack.contentType('contentTypeUid').entry().query();
     await query.find().then((response) {
         print(response.toString());
+        var entries = response['entries'];
+        const keyPath = [
+            "rich_text_editor", "global_rich_multiple.group.rich_text_editor"
+        ]
+        entries.forEach((entry){
+            Utils.render(entry, keyPath, Option);
+        })
     }).catchError((error) {
         print(error.message.toString());
     });
