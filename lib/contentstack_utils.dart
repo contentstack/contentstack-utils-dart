@@ -89,7 +89,7 @@ class Utils {
       var available = embedObject.containsKey('_embedded_items');
       if (available) {
         var jsonArray = embedObject['_embedded_items'];
-        await _getEmbeddedItems(rteString, (metadata) {
+        _getEmbeddedItems(rteString, (metadata) {
           logger.i('metadata $metadata');
           var filteredContent = _findEmbeddedItems(jsonArray, metadata);
           if (filteredContent != null) {
