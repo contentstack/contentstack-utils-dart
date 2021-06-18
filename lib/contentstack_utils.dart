@@ -1,13 +1,10 @@
 library contentstack_utils;
 
-import 'dart:collection';
-
-import 'package:html/parser.dart' show parse;
-import 'package:logger/logger.dart';
-
 import 'package:contentstack_utils/src/helper/Metadata.dart';
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
+import 'package:html/parser.dart' show parse;
+import 'package:logger/logger.dart';
 
 export 'src/embedded/StyleType.dart';
 export 'src/helper/Metadata.dart';
@@ -21,16 +18,13 @@ class Utils {
       FormatException('Invalid file, Can\'t process the json file');
     }
 
-    // Case: when list of Maps provided
     if (jsonObject is List) {
       for (var entry in jsonObject) {
         render(entry, rteKeys, option);
       }
-    }
-    // Case: when Map provided
-    else if (jsonObject is Map) {
+    } else if (jsonObject is Map<String, Object>) {
       if (jsonObject.containsKey('_embedded_items')) {
-        if (rteKeys != null && rteKeys.isNotEmpty) {
+        if (rteKeys.isNotEmpty) {
           for (var path in rteKeys) {
             _findContent(jsonObject, path, (rteContent) {
               logger.i('rteContent $rteContent');
@@ -38,7 +32,7 @@ class Utils {
             });
           }
         } else {
-          LinkedHashMap embeddedKeys = jsonObject['_embedded_items'];
+          Map<String, Object> embeddedKeys = jsonObject['_embedded_items'];
           rteKeys = embeddedKeys.keys.toList();
           embeddedKeys.keys.forEach((keyPath) {
             _findContent(jsonObject, keyPath, (rteContent) {
@@ -53,7 +47,7 @@ class Utils {
   }
 
   static void _findContent(
-      LinkedHashMap jsonObj, String path, Function(String) callback) {
+      Map<String, dynamic> jsonObj, String path, Function(String) callback) {
     var arrayString = path.split('.');
     _getContent(arrayString, jsonObj, callback);
   }
@@ -135,6 +129,44 @@ class Utils {
       containerEntry.forEach((element) {
         callback(Metadata.element(element));
       });
+    }
+  }
+
+  ////////////////////////////////////////////////////////////////////////////
+  ///////////////////// [SUPERCHARGED RTE]  //////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
+
+  static void jsonToHTML(items, List<String> srte_keys, Option option) {
+    if (!UtilityHelper.isValidJson(items)) {
+      logger.i('Invalid file, Can\'t process the json file');
+      FormatException('Invalid file, Can\'t process the json file');
+    }
+
+    if (items is List) {
+      for (var entry in items) {
+        render(entry, srte_keys, option);
+      }
+    } else if (items is Map<String, Object>) {
+      if (items.containsKey('_embedded_items')) {
+        if (srte_keys.isNotEmpty) {
+          for (var path in srte_keys) {
+            _findContent(items, path, (rteContent) {
+              logger.i('rteContent $rteContent');
+              return renderContent(rteContent, items, option);
+            });
+          }
+        } else {
+          Map<String, Object> embeddedKeys = items['_embedded_items'];
+          srte_keys = embeddedKeys.keys.toList();
+          embeddedKeys.keys.forEach((keyPath) {
+            _findContent(items, keyPath, (rteContent) {
+              return renderContent(rteContent, items, option);
+            });
+          });
+        }
+      }
+    } else {
+      FormatException('Invalid file for supercharged objects');
     }
   }
 }

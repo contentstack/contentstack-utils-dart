@@ -4,9 +4,9 @@
 import 'dart:convert' show json;
 import 'dart:io' show File;
 
+import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
-import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
@@ -96,8 +96,5 @@ void main() {
     final _embedded_object = _entryArray['entries'][0];
     prints(_embedded_object);
     logger.d(_embedded_object);
-    //final optionCallback = Option.entry(_embedded_object);
-    //const rteKeys = [ 'global_rich.modular_blocks.rich_in_modular.rich_text_editor'];
-    //Utils.render(_embedded_object, rteKeys, )
   });
 }

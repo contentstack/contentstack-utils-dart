@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:logger/logger.dart';
 
 var logger = Logger(printer: PrettyPrinter());
@@ -15,14 +16,4 @@ class UtilityHelper {
       return false;
     }
   }
-
-  // static String metadataText(container) {
-  //   if (container.isNotEmpty) {
-  //     if (container[0].nodes[0] is Text) {
-  //       return container[0].nodes[0].toString();
-  //     }
-  //     return '';
-  //   }
-  //   return '';
-  // }
 }

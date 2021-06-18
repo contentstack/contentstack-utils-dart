@@ -41,8 +41,8 @@ void main() {
     if (containerAsset.isNotEmpty) {
       containerAsset.forEach((element) {
         final metadata = Metadata.element(element);
-        logger.i(metadata.getOuterHtml);
-        expect(true, isNot(metadata.getOuterHtml));
+        logger.i(metadata.getOuterHTML);
+        expect(true, isNot(metadata.getOuterHTML));
       });
     }
   });
