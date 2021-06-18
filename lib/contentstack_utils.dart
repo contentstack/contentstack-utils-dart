@@ -99,7 +99,6 @@ class Utils {
         var rte = renderContent(element, embedObject, option);
         storeRTE.add(rte);
       });
-
       return storeRTE;
     }
     return rteString;
@@ -139,7 +138,7 @@ class Utils {
   static void jsonToHTML(items, List<String> srte_keys, Option option) {
     if (!UtilityHelper.isValidJson(items)) {
       logger.i('Invalid file, Can\'t process the json file');
-      FormatException('Invalid file, Can\'t process the json file');
+      throw FormatException('Invalid file, Can\'t process the json file');
     }
 
     if (items is List) {
@@ -151,7 +150,6 @@ class Utils {
         if (srte_keys.isNotEmpty) {
           for (var path in srte_keys) {
             _findContent(items, path, (rteContent) {
-              logger.i('rteContent $rteContent');
               return renderContent(rteContent, items, option);
             });
           }
