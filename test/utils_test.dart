@@ -28,7 +28,7 @@ void main() {
     final _entryArray =
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _item = _entryArray['entries'][0];
-    final isValidEntry = UtilityHelper.isValidJson(_item);
+    final isValidEntry = UtilHelper.isValidJson(_item);
     expect(true, isValidEntry);
   });
 
@@ -64,7 +64,7 @@ void main() {
     final rteKeys = [
       'global_rich.modular_blocks.rich_in_modular.rich_text_editor'
     ];
-    Utils.render('_item', rteKeys, optionCallback);
+    Utils.render(_item, rteKeys, optionCallback);
   });
 
   test('utils.render with list of objects', () {

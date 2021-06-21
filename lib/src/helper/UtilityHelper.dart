@@ -4,7 +4,7 @@ import 'package:logger/logger.dart';
 
 var logger = Logger(printer: PrettyPrinter());
 
-class UtilityHelper {
+class UtilHelper {
   static bool isValidJson(jsonString) {
     try {
       if (jsonString is String) {

@@ -2,6 +2,7 @@ library contentstack_utils;
 
 import 'package:contentstack_utils/src/helper/Metadata.dart';
 import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
+import 'package:contentstack_utils/src/model/NodeToHtml.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:html/parser.dart' show parse;
 import 'package:logger/logger.dart';
@@ -13,9 +14,8 @@ var logger = Logger(printer: PrettyPrinter());
 
 class Utils {
   static void render(jsonObject, List<String> rteKeys, Option option) {
-    if (!UtilityHelper.isValidJson(jsonObject)) {
-      logger.i('Invalid file, Can\'t process the json file');
-      FormatException('Invalid file, Can\'t process the json file');
+    if (!UtilHelper.isValidJson(jsonObject)) {
+      throw FormatException('Invalid file, Can\'t process the json file');
     }
 
     if (jsonObject is List) {
@@ -26,8 +26,7 @@ class Utils {
       if (jsonObject.containsKey('_embedded_items')) {
         if (rteKeys.isNotEmpty) {
           for (var path in rteKeys) {
-            _findContent(jsonObject, path, (rteContent) {
-              logger.i('rteContent $rteContent');
+            __find_embed_keys(jsonObject, path, (rteContent) {
               return renderContent(rteContent, jsonObject, option);
             });
           }
@@ -35,7 +34,7 @@ class Utils {
           Map<String, Object> embeddedKeys = jsonObject['_embedded_items'];
           rteKeys = embeddedKeys.keys.toList();
           embeddedKeys.keys.forEach((keyPath) {
-            _findContent(jsonObject, keyPath, (rteContent) {
+            __find_embed_keys(jsonObject, keyPath, (rteContent) {
               return renderContent(rteContent, jsonObject, option);
             });
           });
@@ -46,32 +45,32 @@ class Utils {
     }
   }
 
-  static void _findContent(
-      Map<String, dynamic> jsonObj, String path, Function(String) callback) {
-    var arrayString = path.split('.');
-    _getContent(arrayString, jsonObj, callback);
+  static void __find_embed_keys(
+      Map jsonObj, String path, Function(String) callback) {
+    var keys = path.split('.');
+    _getContent(keys, jsonObj, callback);
   }
 
   static void _getContent(
-      List<String> arrayString, Map jsonObj, Function(String) callback) {
-    if (arrayString.isNotEmpty) {
-      var key = arrayString[0];
-      if (arrayString.length == 1) {
-        var varContent = jsonObj[key];
+      List<String> availableKeys, Map entry, Function(String) callback) {
+    if (availableKeys.isNotEmpty) {
+      var key = availableKeys[0];
+      if (availableKeys.length == 1) {
+        var varContent = entry[key];
         if (varContent is String || varContent is List) {
           if (callback != null) {
-            jsonObj[key] = callback(varContent);
+            entry[key] = callback(varContent);
           }
         }
       } else {
-        arrayString.remove(key);
-        if (jsonObj[key] is Map<dynamic, dynamic>) {
-          _getContent(arrayString, jsonObj[key], callback);
+        availableKeys.remove(key);
+        if (entry[key] is Map<dynamic, dynamic>) {
+          _getContent(availableKeys, entry[key], callback);
         }
-        if (jsonObj[key] is List<dynamic>) {
-          var jsonArray = jsonObj[key];
+        if (entry[key] is List<dynamic>) {
+          var jsonArray = entry[key];
           for (var item in jsonArray) {
-            _getContent(arrayString, item, callback);
+            _getContent(availableKeys, item, callback);
           }
         }
       }
@@ -84,7 +83,6 @@ class Utils {
       if (available) {
         var jsonArray = embedObject['_embedded_items'];
         _getEmbeddedItems(rteString, (metadata) {
-          logger.i('metadata $metadata');
           var filteredContent = _findEmbeddedItems(jsonArray, metadata);
           if (filteredContent != null) {
             var stringData = option.renderOption(filteredContent, metadata);
@@ -131,40 +129,135 @@ class Utils {
     }
   }
 
-  ////////////////////////////////////////////////////////////////////////////
-  ///////////////////// [SUPERCHARGED RTE]  //////////////////////////
-  /////////////////////////////////////////////////////////////////////////////
+  //{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}//
+  //                   [SUPERCHARGED RTE]                         //
+  //}}}}{{}{}{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}{{{{{{{{{{{}}}}}}}}}}}//
 
-  static void jsonToHTML(items, List<String> srte_keys, Option option) {
-    if (!UtilityHelper.isValidJson(items)) {
-      logger.i('Invalid file, Can\'t process the json file');
+  static void jsonToHTML(items, List<String> key_path, Option option) {
+    if (!UtilHelper.isValidJson(items)) {
       throw FormatException('Invalid file, Can\'t process the json file');
     }
 
     if (items is List) {
       for (var entry in items) {
-        render(entry, srte_keys, option);
+        return jsonToHTML(entry, key_path, option);
       }
-    } else if (items is Map<String, Object>) {
-      if (items.containsKey('_embedded_items')) {
-        if (srte_keys.isNotEmpty) {
-          for (var path in srte_keys) {
-            _findContent(items, path, (rteContent) {
-              return renderContent(rteContent, items, option);
-            });
-          }
-        } else {
-          Map<String, Object> embeddedKeys = items['_embedded_items'];
-          srte_keys = embeddedKeys.keys.toList();
-          embeddedKeys.keys.forEach((keyPath) {
-            _findContent(items, keyPath, (rteContent) {
-              return renderContent(rteContent, items, option);
-            });
-          });
+    }
+    if (items is Map && key_path.isNotEmpty) {
+      var _callback = Utils._enumerateContent;
+      for (var path in key_path) {
+        __find_embed_keys(items, path, (rteContent) {
+          return renderContent(rteContent, items, option);
+        });
+      }
+    }
+  }
+
+  static Object _enumerateContent(content, entry, option) {
+    if (content is List) {
+      var arrayContent = [];
+      for (var item in content) {
+        var result = Utils._enumerateContent(item, entry, option);
+        arrayContent.add(result);
+      }
+      return arrayContent;
+    }
+
+    if (content is Map) {
+      if (content.containsKey('type') && content.containsKey('children')) {
+        if (content['type'] == 'doc') {
+          return Utils._rawProcessing(content['children'], entry, option);
         }
       }
-    } else {
-      FormatException('Invalid file for supercharged objects');
     }
+    return '';
+  }
+
+  static String _rawProcessing(children, entry, option) {
+    var array_container = [];
+    for (var item in children) {
+      if (item is Map) {
+        array_container.add(Utils._extractKey(item, entry, option));
+      }
+    }
+    return array_container.join('');
+  }
+
+  static String _extractKey(Map item, Map entry, Option option) {
+    if (!item.containsKey('type') && item.containsKey('text')) {
+      return NodeToHtml.textNodeToHtml(item, option);
+    } else if (item.containsKey('type')) {
+      var nodeStyle = item['type'];
+      if (nodeStyle == 'reference') {
+        var metadata = Utils._returnMetadata(item, nodeStyle);
+        if (entry.containsKey('_embedded_items')) {
+          var keys = entry['_embedded_items'].keys();
+          for (var key in keys) {
+            var itemsArray = entry['_embedded_items'][key];
+            var content = Utils._findEmbeddedEntry(itemsArray, metadata);
+            return Utils._getStringOption(option, metadata, content);
+          }
+        }
+      } else {
+        String call(children) {
+          return Utils._rawProcessing(children, entry, option);
+        }
+
+        return option.renderNode(nodeStyle, item, call);
+      }
+    }
+    return '';
+  }
+
+  static Object _findEmbeddedEntry(List jsonList, Metadata metadata) {
+    for (var obj in jsonList) {
+      if (obj['uid'] == metadata.getItemUid) {
+        return obj;
+      }
+    }
+    return null;
+  }
+
+  static String _getStringOption(
+      Option option, Metadata metadata, Map content) {
+    var stringOption = option.renderOption(content, metadata);
+    if (stringOption == null || stringOption.isEmpty) {
+      stringOption = option.renderOption(content, metadata);
+    }
+    return stringOption;
+  }
+
+  static Metadata _returnMetadata(Map item, nodeStyle) {
+    Map attr = item['attrs'];
+    var text = Utils._getChildText(item);
+    var style = attr['display-type'];
+    if (attr['type'] == 'asset') {
+      return Metadata(
+          text: text,
+          itemType: nodeStyle,
+          itemUid: attr['asset-uid'],
+          contentTypeUid: 'sys-asset',
+          styleType: style);
+    } else {
+      return Metadata(
+          text: text,
+          itemType: nodeStyle,
+          itemUid: attr['entry-uid'],
+          contentTypeUid: 'content-type-uid',
+          styleType: style);
+    }
+  }
+
+  static String _getChildText(Map item) {
+    var text = '';
+    if (item.containsKey('children')) {
+      var children = item['children'];
+      for (Map child in children) {
+        if (child.containsKey(text)) {
+          text = child['text'];
+        }
+      }
+    }
+    return text;
   }
 }

@@ -11,6 +11,15 @@ class Metadata {
   String outerHTML;
   LinkedHashMap<dynamic, String> attributes;
 
+  Metadata(
+      {this.text,
+      this.itemType,
+      this.itemUid,
+      this.contentTypeUid,
+      this.styleType,
+      this.outerHTML,
+      this.attributes});
+
   String get getText => text;
 
   String get getItemType => itemType;
