@@ -57,7 +57,7 @@ class Utils {
       var key = availableKeys[0];
       if (availableKeys.length == 1) {
         var varContent = entry[key];
-        if (varContent is String || varContent is List) {
+        if (varContent is String || varContent is List || varContent is Map) {
           if (callback != null) {
             entry[key] = callback(varContent);
           }
