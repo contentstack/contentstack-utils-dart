@@ -108,9 +108,26 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
     });
 ```
 
-Fetch entry/entries and Render RTE using GraphQL and ‘contentstack utils’ SDK
+### Supercharged
 
-**GraphQL specification is not yet finalized.**
+```dart
+    import 'package:contentstack/contentstack.dart' as contentstack;
+
+    final stack = contentstack.Stack(apiKey, deliveryToken, environment);
+    final query = stack.contentType('contentTypeUid').entry().query();
+    await query.find().then((response) {
+        print(response.toString());
+        var entries = response['entries'];
+        const keyPath = [
+            "rich_text_editor"
+        ]
+        entries.forEach((entry){
+            Utils.jsonToHtml(entry, keyPath, Option);
+        })
+    }).catchError((error) {
+        print(error.message.toString());
+    });
+```
 
 ## Features and bugs
 
