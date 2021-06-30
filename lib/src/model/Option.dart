@@ -83,19 +83,13 @@ class Option {
     var inner_html = callback(node_obj['children']);
     if (nodeType == 'p') {
       return '<p>' + inner_html + '</p>';
-    }
-
-    if (nodeType == 'a') {
-      return '<a href=\"' +
-          node_obj['attrs']['url'] +
-          '\">' +
-          inner_html +
-          '</a>';
+    } else if (nodeType == 'a') {
+      return '<a href=' + node_obj['attrs']['href'] + '>' + inner_html + '</a>';
     } else if (nodeType == 'img') {
-      return '<img src=' '\"' + node_obj['attrs']['url'] + inner_html + '\" />';
+      return '<img src=' + node_obj['attrs']['src'] + ' />' + inner_html + '';
     } else if (nodeType == 'embed') {
-      return '<iframe href=' +
-          node_obj['attrs']['url'] +
+      return '<iframe src=' +
+          node_obj['attrs']['src'] +
           '>' +
           inner_html +
           '</iframe>';

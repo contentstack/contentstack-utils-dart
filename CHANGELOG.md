@@ -3,11 +3,9 @@
 ## v1.0.0
 
 Initial release
-
 ___________________
 
 ## v0.1.0
 
 Beta release for contentstack-dart Utils package
-
 ___________________
