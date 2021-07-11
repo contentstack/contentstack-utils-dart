@@ -1,11 +1,11 @@
 import 'package:contentstack_utils/src/embedded/ItemType.dart';
 import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:html/parser.dart' show parse;
-import 'package:logger/logger.dart';
+//import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var logger = Logger(printer: PrettyPrinter());
+  //var logger = Logger(printer: PrettyPrinter());
   const __stringHtmlAsset =
       '<p>module 2&nbsp;</p><figure class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg\" data-sys-asset-uid=\"blt7324a68403ee7281\" data-sys-asset-filename=\"11.jpg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></figure>';
   const __stringHtmlEntry =
@@ -17,7 +17,7 @@ void main() {
     if (containerAsset.isNotEmpty) {
       containerAsset.forEach((element) {
         final metadata = Metadata.element(element);
-        logger.i(metadata.getStyleType);
+        //logger.i(metadata.getStyleType);
         expect('display', metadata.getStyleType);
       });
     }
@@ -51,7 +51,7 @@ void main() {
     if (containerAsset.isNotEmpty) {
       containerAsset.forEach((element) {
         final metadata = Metadata.element(element);
-        logger.i(metadata.getStyleType);
+        //logger.i(metadata.getStyleType);
         expect('entry', metadata.getItemType);
       });
     }
@@ -75,7 +75,7 @@ void main() {
   test('test ItemType.entry', () {
     const _itemEntry = ItemType.entry;
     final __itemEntry = _itemEntry.toString().split('.').last;
-    logger.i(__itemEntry);
+    //logger.i(__itemEntry);
     expect('entry', __itemEntry);
   });
 }

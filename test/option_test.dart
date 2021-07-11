@@ -17,7 +17,6 @@ void main() {
 
   test('test NodeToHtml subscript styletype', () {
     final item = {'text': 'lorem ipsum lorem ipsum', 'subscript': 'subscript'};
-
     var option = Option();
     var stringVal = NodeToHtml.textNodeToHtml(item, option);
     expect('<sub>lorem ipsum lorem ipsum</sub>', stringVal);

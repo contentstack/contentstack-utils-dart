@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.0
+
+Implemented SRTE jsonToHtml()
+___________________
+
 ## v1.0.0
 
 Initial release

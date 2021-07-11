@@ -46,13 +46,13 @@ class Utils {
   }
 
   static void __find_embed_keys(
-      Map jsonObj, String path, Function(String) callback) {
+      Map jsonObj, String path, Function(Object) callback) {
     var keys = path.split('.');
     _getContent(keys, jsonObj, callback);
   }
 
   static void _getContent(
-      List<String> availableKeys, Map entry, Function(String) callback) {
+      List<String> availableKeys, Map entry, Function(Object) callback) {
     if (availableKeys.isNotEmpty) {
       var key = availableKeys[0];
       if (availableKeys.length == 1) {
@@ -144,10 +144,10 @@ class Utils {
       }
     }
     if (items is Map && key_path.isNotEmpty) {
-      var _callback = Utils._enumerateContent;
+      //var _callback = Utils._enumerateContent;
       for (var path in key_path) {
         __find_embed_keys(items, path, (rteContent) {
-          return renderContent(rteContent, items, option);
+          return _enumerateContent(rteContent, items, option);
         });
       }
     }
