@@ -9,8 +9,8 @@ void main() {
       'attrs': {'url': 'www.google.com/lorem'}
     };
     print(item);
-    //var option = Option().renderNode('p', item, callback);
-    //expect('<sup>lorem ipsum lorem ipsum</sup>', option);
+    // var option = Option().renderNode('p', item, callback);
+    // expect('<sup>lorem ipsum lorem ipsum</sup>', option);
   });
 
   test('test option subscript styletype', () {

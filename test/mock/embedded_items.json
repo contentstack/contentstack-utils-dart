@@ -2,14 +2,14 @@
     "entries": [{
         "title": "Entry one",
         "rich_text_editor": [
-            "<p>hello</p><img class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"http://localhost:8000/v3/assets/blte964dd749943a934/blt6ba515fc6c148887/5d0b406eb0ed0f0c3d433115/dp.jpeg\" data-sys-asset-uid=\"bltba476c60baacb442\" data-sys-asset-filename=\"dp.jpeg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></img><div class=\"redactor-component embedded-entry block-entry redactor-component-active\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"bltb5a04880fbb74f26\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"samplect\" sys-style-type=\"block\" type=\"entry\"></div>\n<p>hello</p>\n<p></p>",
-            "<p>hello</p><img class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"http://localhost:8000/v3/assets/blte964dd749943a934/blt6ba515fc6c148887/5d0b406eb0ed0f0c3d433115/dp.jpeg\" data-sys-asset-uid=\"bltba476c60baacb442\" data-sys-asset-filename=\"dp.jpeg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></img><div class=\"redactor-component embedded-entry block-entry redactor-component-active\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"bltb5a04880fbb74f26\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"samplect\" sys-style-type=\"block\" type=\"entry\"></div>\n<p>hello</p>\n<p></p>"
+            "<p>hello</p><img class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"http://localhost:8000/v3/assets/dp.jpeg\" data-sys-asset-uid=\"476c60baacb442\" data-sys-asset-filename=\"dp.jpeg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></img><div class=\"redactor-component embedded-entry block-entry redactor-component-active\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"bltb5a04880fbb74f26\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"samplect\" sys-style-type=\"block\" type=\"entry\"></div>\n<p>hello</p>\n<p></p>",
+            "<p>hello</p><img class=\"embedded-asset\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-asset-filelink=\"http://localhost:8000/v3/assets/dp.jpeg\" data-sys-asset-uid=\"476c60baacb442\" data-sys-asset-filename=\"dp.jpeg\" data-sys-asset-contenttype=\"image/jpeg\" type=\"asset\" sys-style-type=\"display\"></img><div class=\"redactor-component embedded-entry block-entry redactor-component-active\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"bltb5a04880fbb74f26\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"samplect\" sys-style-type=\"block\" type=\"entry\"></div>\n<p>hello</p>\n<p></p>"
         ],
         "tags": [],
         "locale": "en-us",
         "uid": "blt11e3068b000b3475",
-        "created_by": "blt02b1ac581c14ff2f",
-        "updated_by": "blt02b1ac581c14ff2f",
+        "created_by": "c581c14ff2f",
+        "updated_by": "c581c14ff2f",
         "created_at": "2020-12-04T07:05:14.087Z",
         "updated_at": "2020-12-04T07:57:30.492Z",
         "ACL": {},
@@ -25,8 +25,8 @@
                     "tags": [],
                     "locale": "en-us",
                     "uid": "bltb5a04880fbb74f26",
-                    "created_by": "blt02b1ac581c14ff2f",
-                    "updated_by": "blt02b1ac581c14ff2f",
+                    "created_by": "c581c14ff2f",
+                    "updated_by": "c581c14ff2f",
                     "created_at": "2020-10-20T12:37:00.061Z",
                     "updated_at": "2020-10-20T12:37:00.061Z",
                     "_content_type_uid": "samplect",
@@ -35,7 +35,7 @@
                     "_workflow": {
                         "uid": "blt2d58dc5a06eed07f",
                         "updated_at": "2020-10-20T12:37:00.060Z",
-                        "updated_by": "blt02b1ac581c14ff2f",
+                        "updated_by": "c581c14ff2f",
                         "version": 1
                     },
                     "_in_progress": false
@@ -44,8 +44,8 @@
                     "uid": "bltba476c60baacb442",
                     "created_at": "2020-10-06T13:23:54.459Z",
                     "updated_at": "2020-10-30T06:33:24.861Z",
-                    "created_by": "blt02b1ac581c14ff2f",
-                    "updated_by": "blt02b1ac581c14ff2f",
+                    "created_by": "c581c14ff2f",
+                    "updated_by": "c581c14ff2f",
                     "content_type": "image/jpeg",
                     "file_size": "10126",
                     "tags": [],

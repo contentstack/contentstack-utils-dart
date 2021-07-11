@@ -16,7 +16,7 @@
                 "_content_type_uid": "asset",
 
                 "filename": "11.jpg",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "url": "https://dev16-images.contentstack.com/v3/assets/11.jpg",
                 "_version": 2,
                 "title": "11.jpg",
                 "description": "dddd",
@@ -37,7 +37,7 @@
                 "file_size": "11773",
                 "_content_type_uid": "0_solve",
                 "filename": "11.jpg",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "url": "https://dev16-images.contentstack.com/v3/assets/11.jpg",
                 "_version": 2,
                 "title": "11.jpg",
                 "description": "dddd",
@@ -58,7 +58,7 @@
                 "file_size": "11773",
                 "_content_type_uid": "0_solve",
                 "filename": "11.jpg",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "url": "https://dev16-images.contentstack.com/v3/assets/11.jpg",
                 "_version": 2,
                 "title": "11.jpg",
                 "description": "dddd",
@@ -80,7 +80,7 @@
                 "_content_type_uid": "0_solve",
 
                 "filename": "11.jpg",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "url": "https://dev16-images.contentstack.com/v3/assets/11.jpg",
 
 
                 "_version": 2,
@@ -98,7 +98,7 @@
                     "url": "/suraj-123-entry",
                     "single_line": "Single line textbox",
                     "multi_line": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
-                    "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/blt77263d300aee3e6b/blt9bfd9e8d4df0ad1e/5e156f7050c418529410fe9d/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
+                    "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
                     "markdown": "fsdfsdfsdfasf",
                     "modular_blocks": [{
                         "block_1": {
@@ -159,7 +159,7 @@
                     "_content_type_uid": "0_solve",
 
                     "filename": "iphone-mockup.png",
-                    "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt120a5a04d91c9466/5ebb86965a68ad069038b729/iphone-mockup.png",
+                    "url": "https://dev16-images.contentstack.com/v3/assets/iphone-mockup.png",
                     "ACL": {},
                     "_version": 1,
                     "title": "iphone-mockup.png",
@@ -181,7 +181,7 @@
                 "file_size": "11773",
                 "_content_type_uid": "0_solve",
                 "filename": "11.jpg",
-                "url": "https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg",
+                "url": "https://dev16-images.contentstack.com/v3/assets/11.jpg",
                 "_version": 2,
                 "title": "11.jpg",
                 "description": "dddd",
@@ -197,7 +197,7 @@
                 "url": "/suraj-123-entry",
                 "single_line": "Single line textbox",
                 "multi_line": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
-                "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/blt77263d300aee3e6b/blt9bfd9e8d4df0ad1e/5e156f7050c418529410fe9d/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
+                "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
                 "markdown": "fsdfsdfsdfasf",
                 "modular_blocks": [{
                     "block_1": {
@@ -292,11 +292,11 @@
                     }
                 }],
                 "multi_line": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
-                "rich_text_editor": "<img data-image=\"199k9jsr64s5\" src=\"https://stag-images.contentstack.io/v3/assets/blt77263d300aee3e6b/bltc9d4efe393ee4c5a/5e157cf29da2de41a1ac2ff1/220px-Bastet_Istanbul_museum.JPG\" data-sys-asset-uid=\"bltc9d4efe393ee4c5a\" alt=\"220px-Bastet_Istanbul_museum.JPG\">",
+                "rich_text_editor": "<img data-image=\"199k9jsr64s5\" src=\"https://stag-images.contentstack.io/v3/assets/220px-Bastet_Istanbul_museum.JPG\" data-sys-asset-uid=\"bltc9d4efe393ee4c5a\" alt=\"220px-Bastet_Istanbul_museum.JPG\">",
                 "single_line": "Single line textbox",
                 "suraj_123": [{
                     "single_line": "Multi line textbox",
-                    "rich_text_editor": "<img data-image=\"mzeant040dnw\" src=\"https://stag-images.contentstack.io/v3/assets/blt77263d300aee3e6b/blt863ce52b0c65d670/5e157d0d1ec50841d6bccdb4/220px-House_sparrow04.jpg\" data-sys-asset-uid=\"blt863ce52b0c65d670\" alt=\"220px-House_sparrow04.jpg\">",
+                    "rich_text_editor": "<img data-image=\"mzeant040dnw\" src=\"https://stag-images.contentstack.io/v3/assets/220px-House_sparrow04.jpg\" data-sys-asset-uid=\"blt863ce52b0c65d670\" alt=\"220px-House_sparrow04.jpg\">",
                     "markdown": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
                     "number": 45346346
 
@@ -384,7 +384,7 @@
                 "url": "/suraj-123-entry",
                 "single_line": "Single line textbox",
                 "multi_line": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
-                "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/blt77263d300aee3e6b/blt9bfd9e8d4df0ad1e/5e156f7050c418529410fe9d/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
+                "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
                 "markdown": "fsdfsdfsdfasf",
                 "modular_blocks": [{
                     "block_1": {
@@ -479,7 +479,7 @@
                     }
                 }],
                 "multi_line": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
-                "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/blt77263d300aee3e6b/blt9bfd9e8d4df0ad1e/5e156f7050c418529410fe9d/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
+                "rich_text_editor": "<img data-image=\"lbeuy3biyi6r\" src=\"https://stag-assets.contentstack.io/v3/assets/Ticket.pdf\" data-sys-asset-uid=\"blt9bfd9e8d4df0ad1e\" alt=\"Ticket.pdf\">",
                 "single_line": "Single line textbox",
                 "suraj_123": [{
                         "single_line": "FSDGSDGSDGDF",
@@ -596,11 +596,11 @@
                     }
                 }],
                 "multi_line": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
-                "rich_text_editor": "<img data-image=\"199k9jsr64s5\" src=\"https://stag-images.contentstack.io/v3/assets/blt77263d300aee3e6b/bltc9d4efe393ee4c5a/5e157cf29da2de41a1ac2ff1/220px-Bastet_Istanbul_museum.JPG\" data-sys-asset-uid=\"bltc9d4efe393ee4c5a\" alt=\"220px-Bastet_Istanbul_museum.JPG\">",
+                "rich_text_editor": "<img data-image=\"199k9jsr64s5\" src=\"https://stag-images.contentstack.io/v3/assets/220px-Bastet_Istanbul_museum.JPG\" data-sys-asset-uid=\"bltc9d4efe393ee4c5a\" alt=\"220px-Bastet_Istanbul_museum.JPG\">",
                 "single_line": "Single line textbox",
                 "suraj_123": [{
                     "single_line": "Multi line textbox",
-                    "rich_text_editor": "<img data-image=\"mzeant040dnw\" src=\"https://stag-images.contentstack.io/v3/assets/blt77263d300aee3e6b/blt863ce52b0c65d670/5e157d0d1ec50841d6bccdb4/220px-House_sparrow04.jpg\" data-sys-asset-uid=\"blt863ce52b0c65d670\" alt=\"220px-House_sparrow04.jpg\">",
+                    "rich_text_editor": "<img data-image=\"mzeant040dnw\" src=\"https://stag-images.contentstack.io/v3/assets/220px-House_sparrow04.jpg\" data-sys-asset-uid=\"blt863ce52b0c65d670\" alt=\"220px-House_sparrow04.jpg\">",
                     "markdown": "Multi line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textboxMulti line textbox",
                     "number": 45346346
 
@@ -728,7 +728,7 @@
         }],
         "rich_text_editor": "<div class=\"redactor-component embedded-entry block-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"blt41a3bf40728446c3\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"00_suraj\" sys-style-type=\"block\" type=\"entry\" data-sys-can-edit=\"true\"></div>\n<p>one</p>\n<figure class=\"embedded-asset\" data-sys-asset-filelink=\"https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt120a5a04d91c9466/5ebb86965a68ad069038b729/iphone-mockup.png\" data-sys-asset-uid=\"blt120a5a04d91c9466\" data-sys-asset-filename=\"iphone-mockup.png\" data-sys-asset-contenttype=\"image/png\" type=\"asset\" sys-style-type=\"display\"></figure>",
         "rich_text_editor_multiple": [
-            "<p>Two</p><img data-image=\"akofs65z4070\" src=\"https://dev16-images.contentstack.com/v3/assets/blt77263d300aee3e6b/blt7324a68403ee7281/5f83f543d418e407f919e0e4/11.jpg\" data-sys-asset-uid=\"blt7324a68403ee7281\" alt=\"11.jpg\">"
+            "<p>Two</p><img data-image=\"akofs65z4070\" src=\"https://dev16-images.contentstack.com/v3/assets/11.jpg\" data-sys-asset-uid=\"blt7324a68403ee7281\" alt=\"11.jpg\">"
         ],
 
         "title": "Test Rich Text",

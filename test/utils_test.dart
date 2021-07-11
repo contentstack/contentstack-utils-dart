@@ -20,7 +20,7 @@ void main() {
     final _entryArray =
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _item = _entryArray['entries'][0];
-    logger.i(_item);
+    //logger.i(_item);
     expect('Entry one', _item['title']);
   });
 
@@ -48,10 +48,6 @@ void main() {
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _item = _entryArray['entries'][0];
     final option = Option.entry(_item);
-    final rteKeys = [
-      'global_rich.modular_blocks.rich_in_modular.rich_text_editor'
-    ];
-    logger.i(rteKeys);
     final result = Utils.renderContent(__stringHtmlEntry, _item, option);
     logger.i(result);
   });
@@ -95,6 +91,6 @@ void main() {
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _embedded_object = _entryArray['entries'][0];
     prints(_embedded_object);
-    logger.d(_embedded_object);
+    //logger.d(_embedded_object);
   });
 }

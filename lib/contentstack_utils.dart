@@ -5,12 +5,8 @@ import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
 import 'package:contentstack_utils/src/model/NodeToHtml.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:html/parser.dart' show parse;
-import 'package:logger/logger.dart';
-
 export 'src/embedded/StyleType.dart';
 export 'src/helper/Metadata.dart';
-
-var logger = Logger(printer: PrettyPrinter());
 
 class Utils {
   static void render(jsonObject, List<String> rteKeys, Option option) {

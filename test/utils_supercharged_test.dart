@@ -9,9 +9,15 @@ import 'package:test/test.dart';
 import 'mock/supercharged/results/results.dart';
 
 void main() {
-  const mockBasePath = 'test/mock/supercharged/';
-  const FILE_PATH = mockBasePath + 'supercharged.json';
-  final _entry = json.decode(File(FILE_PATH).readAsStringSync());
+  //const mockBasePath = 'test/mock/supercharged/';
+  //const FILE_PATH = mockBasePath + 'supercharged.json';
+  var _entry;
+
+  setUp(() {
+    const mockBasePath = 'test/mock/supercharged/';
+    const FILE_PATH = mockBasePath + 'supercharged.json';
+    _entry = json.decode(File(FILE_PATH).readAsStringSync());
+  });
 
   test('test supercharged rte check for valid entry json file', () {
     final callback = Option.entry(_entry);

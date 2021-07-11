@@ -17,3 +17,4 @@ build/
 doc/api/
 test/.test_coverage.dart/
 /test/mock/supercharged/
+.DS_Store
