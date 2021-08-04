@@ -10,6 +10,11 @@ class Option {
       _title = obj['title'];
     } else if (obj.containsKey('uid')) {
       _title = obj['uid'];
+    } else if (obj.containsKey('system')) {
+      Map system = obj['system'];
+      if (system.containsKey('uid')) {
+        _title = system['uid'];
+      }
     }
     return _title;
   }
@@ -22,6 +27,11 @@ class Option {
       _title = obj['title'];
     } else if (obj.containsKey('uid')) {
       _title = obj['uid'];
+    } else if (obj.containsKey('system')) {
+      Map system = obj['system'];
+      if (system.containsKey('uid')) {
+        _title = system['uid'];
+      }
     }
     return _title;
   }
@@ -40,6 +50,11 @@ class Option {
       _title = obj['filename'];
     } else if (obj.containsKey('uid')) {
       _title = obj['uid'];
+    } else if (obj.containsKey('system')) {
+      Map system = obj['system'];
+      if (system.containsKey('uid')) {
+        _title = system['uid'];
+      }
     }
     return _title;
   }
@@ -49,7 +64,8 @@ class Option {
     switch (style) {
       case 'block':
         var titlOrUid = _findTitleOrUid(obj);
-        var _content_type_uid = obj['_content_type_uid'];
+        var _content_type_uid =
+            obj['_content_type_uid'] ?? obj['system']['content_type_uid'];
         return '<div><p>$titlOrUid</p><p>Content type: <span>$_content_type_uid</span></p></div>';
       case 'inline':
         var displyPlayers = _findInlineLink(metadata, obj);

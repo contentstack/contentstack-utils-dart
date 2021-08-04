@@ -4,6 +4,8 @@
 import 'dart:convert' show json;
 import 'dart:io' show File;
 
+import 'package:contentstack_utils/src/gql.dart';
+import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -18,5 +20,11 @@ void main() {
   test('test file decoder is working fine', () {
     final _item = _entry['srte'];
     expect('sameple_uid', _item['json'][0]['uid']);
+  });
+
+  test('test gql file', () {
+    var option = Option();
+    GQL.jsonToHTML(_entry, ['srte'], option);
+    expect('sameple_uid', _entry['json'][0]['uid']);
   });
 }

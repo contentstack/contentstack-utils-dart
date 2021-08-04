@@ -1,10 +1,7 @@
 library contentstack_utils;
 
-import 'dart:collection';
-
 import 'package:contentstack_utils/src/helper/Metadata.dart';
 import 'package:contentstack_utils/src/helper/Automate.dart';
-import 'package:contentstack_utils/src/model/NodeToHtml.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:html/parser.dart' show parse;
 
@@ -25,7 +22,7 @@ class Utils {
       if (jsonObject.containsKey('_embedded_items')) {
         if (rteKeys.isNotEmpty) {
           for (var path in rteKeys) {
-            __find_embed_keys(jsonObject, path, (rteContent) {
+            Automate.find_embed_keys(jsonObject, path, (rteContent) {
               return renderContent(rteContent, jsonObject, option);
             });
           }
@@ -33,7 +30,7 @@ class Utils {
           Map<String, Object> embeddedKeys = jsonObject['_embedded_items'];
           rteKeys = embeddedKeys.keys.toList();
           embeddedKeys.keys.forEach((keyPath) {
-            __find_embed_keys(jsonObject, keyPath, (rteContent) {
+            Automate.find_embed_keys(jsonObject, keyPath, (rteContent) {
               return renderContent(rteContent, jsonObject, option);
             });
           });
@@ -44,37 +41,31 @@ class Utils {
     }
   }
 
-  static void __find_embed_keys(
-      Map jsonObj, String path, Function(Object) callback) {
-    var keys = path.split('.');
-    _getContent(keys, jsonObj, callback);
-  }
-
-  static void _getContent(
-      List<String> availableKeys, Map entry, Function(Object) callback) {
-    if (availableKeys.isNotEmpty) {
-      var key = availableKeys[0];
-      if (availableKeys.length == 1) {
-        var varContent = entry[key];
-        if (varContent is String || varContent is List || varContent is Map) {
-          if (callback != null) {
-            entry[key] = callback(varContent);
-          }
-        }
-      } else {
-        availableKeys.remove(key);
-        if (entry[key] is Map<dynamic, dynamic>) {
-          _getContent(availableKeys, entry[key], callback);
-        }
-        if (entry[key] is List<dynamic>) {
-          var jsonArray = entry[key];
-          for (var item in jsonArray) {
-            _getContent(availableKeys, item, callback);
-          }
-        }
-      }
-    }
-  }
+  // static void _getContent(
+  //     List<String> availableKeys, Map entry, Function(Object) callback) {
+  //   if (availableKeys.isNotEmpty) {
+  //     var key = availableKeys[0];
+  //     if (availableKeys.length == 1) {
+  //       var varContent = entry[key];
+  //       if (varContent is String || varContent is List || varContent is Map) {
+  //         if (callback != null) {
+  //           entry[key] = callback(varContent);
+  //         }
+  //       }
+  //     } else {
+  //       availableKeys.remove(key);
+  //       if (entry[key] is Map<dynamic, dynamic>) {
+  //         _getContent(availableKeys, entry[key], callback);
+  //       }
+  //       if (entry[key] is List<dynamic>) {
+  //         var jsonArray = entry[key];
+  //         for (var item in jsonArray) {
+  //           _getContent(availableKeys, item, callback);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   static Object renderContent(rteString, Map embedObject, Option option) async {
     if (rteString is String) {
@@ -144,119 +135,80 @@ class Utils {
     }
     if (items is Map && key_path.isNotEmpty) {
       for (var path in key_path) {
-        __find_embed_keys(items, path, (rteContent) {
-          return _enumerateContent(rteContent, items, option);
+        Automate.find_embed_keys(items, path, (rteContent) {
+          return Automate.enumerateContent(rteContent, items, option);
         });
       }
     }
   }
 
-  static Object _enumerateContent(content, entry, option) {
-    if (content is List) {
-      var arrayContent = [];
-      for (var item in content) {
-        var result = Utils._enumerateContent(item, entry, option);
-        arrayContent.add(result);
-      }
-      return arrayContent;
-    }
+  // static String _extractKey(Map item, Map entry, Option option) {
+  //   if (!item.containsKey('type') && item.containsKey('text')) {
+  //     return NodeToHtml.textNodeToHtml(item, option);
+  //   } else if (item.containsKey('type')) {
+  //     var nodeStyle = item['type'];
+  //     if (nodeStyle == 'reference') {
+  //       var metadata = Automate.returnMetadata(item, nodeStyle);
+  //       if (entry.containsKey('_embedded_items')) {
+  //         var _embedded_items = entry['_embedded_items'];
+  //         var keys = _embedded_items.keys;
+  //         for (var key in keys) {
+  //           var itemsArray = entry['_embedded_items'][key];
+  //           var content = Automate.findEmbeddedEntry(itemsArray, metadata);
+  //           if (content != null) {
+  //             return Automate.getStringOption(option, metadata, content);
+  //           }
+  //         }
+  //       }
+  //     } else {
+  //       String call(children) {
+  //         return Automate.rawProcessing(children, entry, option);
+  //       }
 
-    if (content is Map) {
-      if (content.containsKey('type') && content.containsKey('children')) {
-        if (content['type'] == 'doc') {
-          return Utils._rawProcessing(content['children'], entry, option);
-        }
-      }
-    }
-    return '';
-  }
+  //       return option.renderNode(nodeStyle, item, call);
+  //     }
+  //   }
+  //   return '';
+  // }
 
-  static String _rawProcessing(children, entry, option) {
-    var array_container = [];
-    for (var item in children) {
-      if (item is Map) {
-        array_container.add(Utils._extractKey(item, entry, option));
-      }
-    }
-    return array_container.join('');
-  }
+  // static String _getStringOption(Option option, Metadata meta, Map content) {
+  //   var stringOption = option.renderOption(content, meta);
+  //   return stringOption;
+  // }
 
-  static String _extractKey(Map item, Map entry, Option option) {
-    if (!item.containsKey('type') && item.containsKey('text')) {
-      return NodeToHtml.textNodeToHtml(item, option);
-    } else if (item.containsKey('type')) {
-      var nodeStyle = item['type'];
-      if (nodeStyle == 'reference') {
-        var metadata = Utils._returnMetadata(item, nodeStyle);
-        if (entry.containsKey('_embedded_items')) {
-          var _embedded_items = entry['_embedded_items'];
-          var keys = _embedded_items.keys;
-          for (var key in keys) {
-            var itemsArray = entry['_embedded_items'][key];
-            var content = Utils._findEmbeddedEntry(itemsArray, metadata);
-            if (content != null) {
-              return Utils._getStringOption(option, metadata, content);
-            }
-          }
-        }
-      } else {
-        String call(children) {
-          return Utils._rawProcessing(children, entry, option);
-        }
+  // static Metadata _returnMetadata(Map item, nodeStyle) {
+  //   LinkedHashMap<dynamic, dynamic> attr = item['attrs'];
+  //   var text = Automate.getChildText(item);
+  //   var style = attr['display-type'];
+  //   if (attr['type'] == 'asset') {
+  //     return Metadata(
+  //         text: text,
+  //         itemType: nodeStyle,
+  //         itemUid: attr['asset-uid'],
+  //         contentTypeUid: 'sys-asset',
+  //         styleType: style,
+  //         attributes: attr);
+  //   } else {
+  //     return Metadata(
+  //         text: text,
+  //         itemType: nodeStyle,
+  //         itemUid: attr['entry-uid'],
+  //         contentTypeUid: 'content-type-uid',
+  //         styleType: style,
+  //         attributes: attr);
+  //   }
+  // }
 
-        return option.renderNode(nodeStyle, item, call);
-      }
-    }
-    return '';
-  }
-
-  static Object _findEmbeddedEntry(List jsonList, Metadata metadata) {
-    for (var obj in jsonList) {
-      if (obj['uid'] == metadata.getItemUid) {
-        return obj;
-      }
-    }
-    return null;
-  }
-
-  static String _getStringOption(Option option, Metadata meta, Map content) {
-    var stringOption = option.renderOption(content, meta);
-    return stringOption;
-  }
-
-  static Metadata _returnMetadata(Map item, nodeStyle) {
-    LinkedHashMap<dynamic, dynamic> attr = item['attrs'];
-    var text = Utils._getChildText(item);
-    var style = attr['display-type'];
-    if (attr['type'] == 'asset') {
-      return Metadata(
-          text: text,
-          itemType: nodeStyle,
-          itemUid: attr['asset-uid'],
-          contentTypeUid: 'sys-asset',
-          styleType: style,
-          attributes: attr);
-    } else {
-      return Metadata(
-          text: text,
-          itemType: nodeStyle,
-          itemUid: attr['entry-uid'],
-          contentTypeUid: 'content-type-uid',
-          styleType: style,
-          attributes: attr);
-    }
-  }
-
-  static String _getChildText(Map item) {
-    var text = '';
-    if (item.containsKey('children')) {
-      var children = item['children'];
-      for (Map child in children) {
-        if (child.containsKey(text)) {
-          text = child['text'];
-        }
-      }
-    }
-    return text;
-  }
+  // static String _getChildText(Map item) {
+  //   var text = '';
+  //   if (item.containsKey('children')) {
+  //     var children = item['children'];
+  //     for (Map child in children) {
+  //       if (child.containsKey(text)) {
+  //         text = child['text'];
+  //       }
+  //     }
+  //   }
+  //   return text;
+  // }
 }
