@@ -45,129 +45,116 @@ class Option {
   }
 
   String renderOption(Map obj, Metadata metadata) {
-    if (metadata.styleType == 'block') {
-      return "<div><p>$_findTitleOrUid(embeddedObject)</p><p>Content type: <span>${obj['_content_type_uid']}</span></p></div>";
+    var style = metadata.styleType;
+    switch (style) {
+      case 'block':
+        var titlOrUid = _findTitleOrUid(obj);
+        var _content_type_uid = obj['_content_type_uid'];
+        return '<div><p>$titlOrUid</p><p>Content type: <span>$_content_type_uid</span></p></div>';
+      case 'inline':
+        var displyPlayers = _findInlineLink(metadata, obj);
+        return '<span>$displyPlayers</span>';
+      case 'link':
+        var displyPlayers = _findDisplayAtrr(metadata, obj);
+        var inlineUrl = _findInlineUrl(obj);
+        return '<a href=$inlineUrl>$displyPlayers</a>';
+      case 'display':
+        var _inlineUrl = _findInlineUrl(obj);
+        var displyPlayers = _findDisplayAtrr(metadata, obj);
+        return '<img src="$_inlineUrl" alt=$displyPlayers />';
+      case 'download':
+        var _inlineUrl = _findInlineUrl(obj);
+        var displyPlayers = _findDisplayAtrr(metadata, obj);
+        return '<a href=$_inlineUrl alt=$displyPlayers </a>';
+      default:
+        return '';
     }
-    if (metadata.styleType == 'inline') {
-      return '<span>$_findTitleOrUid(embeddedObject)</span>';
-    }
-    if (metadata.styleType == 'link') {
-      return '<a href=$_findInlineUrl(embeddedObject)>$_findInlineLink(metadata, embeddedObject)</a>';
-    }
-    if (metadata.styleType == 'display') {
-      return '<img src=${_findInlineUrl(obj)} alt=$_findDisplayAtrr(metadata, embeddedObject) />';
-    }
-    if (metadata.styleType == 'download') {
-      return '<a href=${_findInlineUrl(obj)} alt=$_findDisplayAtrr(metadata, embeddedObject) </a>';
-    }
-    return '';
   }
 
   String renderMark(String markType, String renderText) {
-    if (markType == 'superscript') {
-      return '<sup>' + renderText + '</sup>';
-    }
-    if (markType == 'subscript') {
-      return '<sub>' + renderText + '</sub>';
-    }
-    if (markType == 'inlineCode') {
-      return '<span>' + renderText + '</span>';
-    }
-    if (markType == 'strikethrough') {
-      return '<strike>' + renderText + '</strike>';
-    }
-    if (markType == 'underline') {
-      return '<u>' + renderText + '</u>';
-    }
-    if (markType == 'italic') {
-      return '<em>' + renderText + '</em>';
-    }
-    if (markType == 'bold') {
-      return '<strong>' + renderText + '</strong>';
-    }
-    {
-      return renderText;
+    switch (markType) {
+      case 'superscript':
+        return '<sup>' + renderText + '</sup>';
+      case 'subscript':
+        return '<sub>' + renderText + '</sub>';
+      case 'inlineCode':
+        return '<span>' + renderText + '</span>';
+      case 'strikethrough':
+        return '<strike>' + renderText + '</strike>';
+      case 'underline':
+        return '<u>' + renderText + '</u>';
+      case 'italic':
+        return '<em>' + renderText + '</em>';
+      case 'bold':
+        return '<strong>' + renderText + '</strong>';
+      default:
+        return renderText;
     }
   }
 
   String renderNode(nodeType, Map node_obj, callback) {
     var inner_html = callback(node_obj['children']);
-    if (nodeType == 'p') {
-      return '<p>' + inner_html + '</p>';
+    switch (nodeType) {
+      case 'p':
+        return '<p>' + inner_html + '</p>';
+      case 'a':
+        return '<a href="' +
+            node_obj['attrs']['href'] +
+            '">' +
+            inner_html +
+            '</a>';
+      case 'img':
+        return '<img src="' +
+            node_obj['attrs']['src'] +
+            '"/>' +
+            inner_html +
+            '';
+      case 'embed':
+        return '<iframe src="' +
+            node_obj['attrs']['src'] +
+            '">' +
+            inner_html +
+            '</iframe>';
+      case 'h1':
+        return '<h1>' + inner_html + '</h1>';
+      case 'h2':
+        return '<h2>' + inner_html + '</h2>';
+      case 'h3':
+        return '<h3>' + inner_html + '</h3>';
+      case 'h4':
+        return '<h4>' + inner_html + '</h4>';
+      case 'h5':
+        return '<h5>' + inner_html + '</h5>';
+      case 'h6':
+        return '<h6>' + inner_html + '</h6>';
+      case 'ol':
+        return '<ol>' + inner_html + '</ol>';
+      case 'ul':
+        return '<ul>' + inner_html + '</ul>';
+      case 'li':
+        return '<li>' + inner_html + '</li>';
+      case 'hr':
+        return '<hr />';
+      case 'table':
+        return '<table>' + inner_html + '</table>';
+      case 'thead':
+        return '<thead>' + inner_html + '</thead>';
+      case 'tbody':
+        return '<tbody>' + inner_html + '</tbody>';
+      case 'tfoot':
+        return '<tfoot>' + inner_html + '</tfoot>';
+      case 'tr':
+        return '<tr>' + inner_html + '</tr>';
+      case 'th':
+        return '<th>' + inner_html + '</th>';
+      case 'td':
+        return '<td>' + inner_html + '</td>';
+      case 'blockquote':
+        return '<blockquote>' + inner_html + '</blockquote>';
+      case 'code':
+        return '<code>' + inner_html + '</code>';
+      default:
+        return '<doc>' + inner_html + '</code>';
     }
-    if (nodeType == 'a') {
-      return '<a href=' + node_obj['attrs']['href'] + '>' + inner_html + '</a>';
-    }
-    if (nodeType == 'img') {
-      return '<img src=' + node_obj['attrs']['src'] + ' />' + inner_html + '';
-    }
-    if (nodeType == 'embed') {
-      return '<iframe src=' +
-          node_obj['attrs']['src'] +
-          '>' +
-          inner_html +
-          '</iframe>';
-    }
-    if (nodeType == 'h1') {
-      return '<h1>' + inner_html + '</h1>';
-    }
-    if (nodeType == 'h2') {
-      return '<h2>' + inner_html + '</h2>';
-    }
-    if (nodeType == 'h3') {
-      return '<h3>' + inner_html + '</h3>';
-    }
-    if (nodeType == 'h4') {
-      return '<h4>' + inner_html + '</h4>';
-    }
-    if (nodeType == 'h5') {
-      return '<h5>' + inner_html + '</h5>';
-    }
-    if (nodeType == 'h6') {
-      return '<h6>' + inner_html + '</h6>';
-    }
-    if (nodeType == 'ol') {
-      return '<ol>' + inner_html + '</ol>';
-    }
-    if (nodeType == 'ul') {
-      return '<ul>' + inner_html + '</ul>';
-    }
-    if (nodeType == 'li') {
-      return '<li>' + inner_html + '</li>';
-    }
-    if (nodeType == 'hr') {
-      return '<hr />';
-    }
-    if (nodeType == 'table') {
-      return '<table>' + inner_html + '</table>';
-    }
-    if (nodeType == 'thead') {
-      return '<thead>' + inner_html + '</thead>';
-    }
-    if (nodeType == 'tbody') {
-      return '<tbody>' + inner_html + '</tbody>';
-    }
-    if (nodeType == 'tfoot') {
-      return '<tfoot>' + inner_html + '</tfoot>';
-    }
-    if (nodeType == 'tr') {
-      return '<tr>' + inner_html + '</tr>';
-    }
-    if (nodeType == 'th') {
-      return '<th>' + inner_html + '</th>';
-    }
-    if (nodeType == 'td') {
-      return '<td>' + inner_html + '</td>';
-    }
-    if (nodeType == 'blockquote') {
-      return '<blockquote>' + inner_html + '</blockquote>';
-    }
-    if (nodeType == 'code') {
-      return '<code>' + inner_html + '</code>';
-    }
-    if (['doc', 'reference'].contains(nodeType)) {
-      return inner_html;
-    }
-    return inner_html;
   }
 }

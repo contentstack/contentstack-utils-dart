@@ -9,7 +9,7 @@ class Metadata {
   String contentTypeUid;
   String styleType;
   String outerHTML;
-  LinkedHashMap<dynamic, String> attributes;
+  LinkedHashMap<dynamic, dynamic> attributes;
 
   Metadata(
       {this.text,
@@ -32,7 +32,7 @@ class Metadata {
 
   String get getOuterHTML => outerHTML;
 
-  LinkedHashMap<dynamic, String> get getAttributes => attributes;
+  LinkedHashMap<dynamic, dynamic> get getAttributes => attributes;
 
   Metadata.element(Element element) {
     text = element.text;

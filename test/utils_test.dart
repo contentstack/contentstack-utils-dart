@@ -5,22 +5,21 @@ import 'dart:convert' show json;
 import 'dart:io' show File;
 
 import 'package:contentstack_utils/contentstack_utils.dart';
-import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
+import 'package:contentstack_utils/src/helper/Automate.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
-import 'package:logger/logger.dart';
+//import 'package:logger/logger.dart';
 import 'package:test/test.dart';
 
 void main() {
-  var logger = Logger(printer: PrettyPrinter());
+  //var logger = Logger(printer: PrettyPrinter());
 
   const __stringHtmlEntry =
       '<p>Global multiple 2<span class=\"redactor-component embedded-entry inline-entry\" data-redactor-type=\"embed\" data-widget-code=\"\" data-sys-entry-uid=\"bltba476c60baacb442\" data-sys-entry-locale=\"en-us\" data-sys-content-type-uid=\"0_solve\" data-sys-can-edit=\"true\" sys-style-type=\"inline\" type=\"entry\"></span></p>';
 
-  test('test file decoder is woring fine', () {
+  test('test file decoder is working fine', () {
     final _entryArray =
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _item = _entryArray['entries'][0];
-    //logger.i(_item);
     expect('Entry one', _item['title']);
   });
 
@@ -28,7 +27,7 @@ void main() {
     final _entryArray =
         json.decode(File('test/mock/embedded_items.json').readAsStringSync());
     final _item = _entryArray['entries'][0];
-    final isValidEntry = UtilHelper.isValidJson(_item);
+    final isValidEntry = Automate.isValidJson(_item);
     expect(true, isValidEntry);
   });
 

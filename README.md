@@ -95,7 +95,7 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
     });
 ```
 
-### Supercharged
+### Supercharged (SRTE)
 
 ```dart
     import 'package:contentstack/contentstack.dart' as contentstack;
@@ -106,6 +106,23 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
         const keyPath = ["rich_text_editor"]
         entries.forEach((entry){
             Utils.jsonToHtml(entry, keyPath, Option);
+        })
+    }).catchError((error) {
+        print(error.message.toString());
+    });
+```
+
+### GraphQl SRTE
+
+```dart
+    import 'package:contentstack/contentstack.dart' as contentstack;
+    final stack = contentstack.Stack(apiKey, deliveryToken, environment);
+    final query = stack.contentType('contentTypeUid').entry().query();
+    await query.find().then((response) {
+        var entries = response['entries'];
+        const keyPath = ["rich_text_editor"]
+        entries.forEach((entry){
+            GQL.jsonToHtml(entry, keyPath, Option);
         })
     }).catchError((error) {
         print(error.message.toString());

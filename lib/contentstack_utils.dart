@@ -1,16 +1,19 @@
 library contentstack_utils;
 
+import 'dart:collection';
+
 import 'package:contentstack_utils/src/helper/Metadata.dart';
-import 'package:contentstack_utils/src/helper/UtilityHelper.dart';
+import 'package:contentstack_utils/src/helper/Automate.dart';
 import 'package:contentstack_utils/src/model/NodeToHtml.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:html/parser.dart' show parse;
+
 export 'src/embedded/StyleType.dart';
 export 'src/helper/Metadata.dart';
 
 class Utils {
   static void render(jsonObject, List<String> rteKeys, Option option) {
-    if (!UtilHelper.isValidJson(jsonObject)) {
+    if (!Automate.isValidJson(jsonObject)) {
       throw FormatException('Invalid file, Can\'t process the json file');
     }
 
@@ -130,7 +133,7 @@ class Utils {
   //}}}}{{}{}{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}{{{{{{{{{{{}}}}}}}}}}}//
 
   static void jsonToHTML(items, List<String> key_path, Option option) {
-    if (!UtilHelper.isValidJson(items)) {
+    if (!Automate.isValidJson(items)) {
       throw FormatException('Invalid file, Can\'t process the json file');
     }
 
@@ -140,7 +143,6 @@ class Utils {
       }
     }
     if (items is Map && key_path.isNotEmpty) {
-      //var _callback = Utils._enumerateContent;
       for (var path in key_path) {
         __find_embed_keys(items, path, (rteContent) {
           return _enumerateContent(rteContent, items, option);
@@ -187,11 +189,14 @@ class Utils {
       if (nodeStyle == 'reference') {
         var metadata = Utils._returnMetadata(item, nodeStyle);
         if (entry.containsKey('_embedded_items')) {
-          var keys = entry['_embedded_items'].keys();
+          var _embedded_items = entry['_embedded_items'];
+          var keys = _embedded_items.keys;
           for (var key in keys) {
             var itemsArray = entry['_embedded_items'][key];
             var content = Utils._findEmbeddedEntry(itemsArray, metadata);
-            return Utils._getStringOption(option, metadata, content);
+            if (content != null) {
+              return Utils._getStringOption(option, metadata, content);
+            }
           }
         }
       } else {
@@ -214,17 +219,13 @@ class Utils {
     return null;
   }
 
-  static String _getStringOption(
-      Option option, Metadata metadata, Map content) {
-    var stringOption = option.renderOption(content, metadata);
-    if (stringOption == null || stringOption.isEmpty) {
-      stringOption = option.renderOption(content, metadata);
-    }
+  static String _getStringOption(Option option, Metadata meta, Map content) {
+    var stringOption = option.renderOption(content, meta);
     return stringOption;
   }
 
   static Metadata _returnMetadata(Map item, nodeStyle) {
-    Map attr = item['attrs'];
+    LinkedHashMap<dynamic, dynamic> attr = item['attrs'];
     var text = Utils._getChildText(item);
     var style = attr['display-type'];
     if (attr['type'] == 'asset') {
@@ -233,14 +234,16 @@ class Utils {
           itemType: nodeStyle,
           itemUid: attr['asset-uid'],
           contentTypeUid: 'sys-asset',
-          styleType: style);
+          styleType: style,
+          attributes: attr);
     } else {
       return Metadata(
           text: text,
           itemType: nodeStyle,
           itemUid: attr['entry-uid'],
           contentTypeUid: 'content-type-uid',
-          styleType: style);
+          styleType: style,
+          attributes: attr);
     }
   }
 

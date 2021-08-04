@@ -9,8 +9,6 @@ import 'package:test/test.dart';
 import 'mock/supercharged/results/results.dart';
 
 void main() {
-  //const mockBasePath = 'test/mock/supercharged/';
-  //const FILE_PATH = mockBasePath + 'supercharged.json';
   var _entry;
 
   setUp(() {
@@ -118,6 +116,6 @@ void main() {
   test('test supercharged rte reference html', () {
     final callback = Option.entry(_entry);
     Utils.jsonToHTML(_entry, ['reference'], callback);
-    expect(Result.plainTextHtml, _entry['reference']);
+    expect(Result.refernce, _entry['reference']);
   });
 }
