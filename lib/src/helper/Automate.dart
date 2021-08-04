@@ -1,6 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
-
+import 'package:html/parser.dart' show parse;
 import 'package:contentstack_utils/contentstack_utils.dart';
 import 'package:contentstack_utils/src/model/NodeToHtml.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
@@ -18,6 +18,33 @@ class Automate {
     } on FormatException catch (e) {
       logger.w('Entry json file is not valid ${e.message}');
       return false;
+    }
+  }
+
+  static Map findEmbeddedItems(Map jsonObject, Metadata metadata) {
+    var keys = jsonObject.keys;
+    for (var item in keys) {
+      List jsonArray = jsonObject[item];
+      var filteredContent = jsonArray
+          .firstWhere((element) => element['uid'] == metadata.getItemUid);
+      return filteredContent;
+    }
+    return null;
+  }
+
+  static void getEmbeddedItems(stringHtml, Function(Metadata) callback) {
+    final document = parse(stringHtml);
+    var containerAsset = document.getElementsByClassName('embedded-asset');
+    var containerEntry = document.getElementsByClassName('embedded-entry');
+    if (containerAsset.isNotEmpty) {
+      containerAsset.forEach((element) {
+        callback(Metadata.element(element));
+      });
+    }
+    if (containerEntry.isNotEmpty) {
+      containerEntry.forEach((element) {
+        callback(Metadata.element(element));
+      });
     }
   }
 
