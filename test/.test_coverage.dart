@@ -6,6 +6,10 @@ import 'metadata_test.dart' as metadata_test;
 import 'style_type_test.dart' as style_type_test;
 import 'utility_helper_test.dart' as utility_helper_test;
 import 'utils_test.dart' as utils_test;
+import 'option_test.dart' as render_option;
+import 'render_mark_test.dart' as render_mark;
+import 'render_node_test.dart' as render_node;
+import 'utils_supercharged_test.dart' as supercharged;
 
 void main() {
   utils_test.main();
@@ -13,4 +17,9 @@ void main() {
   utility_helper_test.main();
   item_type_test.main();
   style_type_test.main();
+  render_option.main();
+  render_option.main();
+  render_mark.main();
+  render_node.main();
+  supercharged.main();
 }

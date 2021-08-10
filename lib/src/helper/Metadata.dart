@@ -4,24 +4,35 @@ import 'package:html/dom.dart';
 
 class Metadata {
   String text;
-
-  /* type of embedded object*/
   String itemType;
-
-  /* itemUid of embedded object*/
   String itemUid;
-
-  /* contentTypeUid of embedded object*/
   String contentTypeUid;
-
-  /* styleTypeUid of embedded object*/
   String styleType;
-
-  /* Outer HTML of embedded object*/
   String outerHTML;
+  LinkedHashMap<dynamic, dynamic> attributes;
 
-  /* attributes of embedded object*/
-  LinkedHashMap<dynamic, String> attributes;
+  Metadata(
+      {this.text,
+      this.itemType,
+      this.itemUid,
+      this.contentTypeUid,
+      this.styleType,
+      this.outerHTML,
+      this.attributes});
+
+  String get getText => text;
+
+  String get getItemType => itemType;
+
+  String get getItemUid => itemUid;
+
+  String get getContentTypeUid => contentTypeUid;
+
+  String get getStyleType => styleType;
+
+  String get getOuterHTML => outerHTML;
+
+  LinkedHashMap<dynamic, dynamic> get getAttributes => attributes;
 
   Metadata.element(Element element) {
     text = element.text;
@@ -32,35 +43,5 @@ class Metadata {
     styleType = element.attributes['sys-style-type'];
     outerHTML = element.outerHtml;
     attributes = element.attributes;
-  }
-
-  // Returns text
-  String get getText {
-    return text;
-  }
-
-  // Returns ItemType
-  String get getItemType {
-    return itemType;
-  }
-
-  // Returns ItemUid
-  String get getItemUid {
-    return itemUid;
-  }
-
-  // Returns contentTypeUid
-  String get getContentTypeUid {
-    return contentTypeUid;
-  }
-
-  // Return styleType
-  String get getStyleType {
-    return styleType;
-  }
-
-  //Return outerHTML
-  String get getOuterHtml {
-    return outerHTML;
   }
 }

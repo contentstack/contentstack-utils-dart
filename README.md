@@ -1,6 +1,6 @@
 # A Contentstack-Utils library for Dart developers
 
-![Coverage](https://github.com/contentstack/contentstack-utils-dart/blob/master/coverage_badge.svg)
+![Coverage](https://github.com/contentstack/contentstack-utils-dart/blob/master/coverage_badge.svg?sanitize=true)
 
 ## Contentstack Dart Utils SDK
 
@@ -14,7 +14,7 @@ Latest Android Studio or IntelliJ IDEA or Visual Studio Code
 
 - Setup and Installation
 
-- We need to install Dart
+- We need to install dart
 
 ## Dependency
 
@@ -37,28 +37,23 @@ To render Embedded objects within RTE create renderOption as follows:
 
 ```dart
 Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
-    
     switch (metadata.getStyleType()) {
         case BLOCK:
            String title = embeddedObject.getString("title");
            String multi_line = embeddedObject.getString("multi_line");
            return "<p>" + title + "</p><span>" + multi_line + "</span>";
-
         case INLINE:
            String titleInline = embeddedObject.getString("title");
            String mlInline = embeddedObject.getString("multi_line");
            return "<p>" + titleInline + "</p><span>" + mlInline + "</span>";
-
         case LINKED:
            String titleLinked = embeddedObject.getString("title");
            String mlLinked = embeddedObject.getString("multi_line");
            return "<p>" + titleLinked + "</p><span>" + mlLinked + "</span>";
-       
         case DISPLAY:
            String titleDiplayable = embeddedObject.getString("title");
            String mlDiplayable = embeddedObject.getString("multi_line");
            return "<p>" + titleDiplayable + "</p><span>" + mlDiplayable + "</span>";
-
        default:
            return null;
    }
@@ -71,15 +66,11 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
 
 ```dart
     import 'package:contentstack/contentstack.dart' as contentstack;
-    
     final stack = contentstack.Stack(apiKey, deliveryToken, environment);
     final entry = stack.contentType('contentTypeUid').entry(entryUid: 'entryUid');
     entry..includeEmbeddedItems();
     await entry.fetch().then((response) {
-        print(response.toString());
-        const keyPath = [
-            "rich_text_editor", "global_rich_multiple.group.rich_text_editor"
-        ]
+        const keyPath = [ "rich_text_editor", "global_rich_multiple.group.rich_text_editor"]
         final jsonObject = response['entry'];
         Utils.render(jsonObject, keyPath, Option);
     }).catchError((error) {
@@ -91,15 +82,11 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
 
 ```dart
     import 'package:contentstack/contentstack.dart' as contentstack;
-
     final stack = contentstack.Stack(apiKey, deliveryToken, environment);
     final query = stack.contentType('contentTypeUid').entry().query();
     await query.find().then((response) {
-        print(response.toString());
         var entries = response['entries'];
-        const keyPath = [
-            "rich_text_editor", "global_rich_multiple.group.rich_text_editor"
-        ]
+        const keyPath = ["rich_text_editor", "global_rich_multiple.group.rich_text_editor"]
         entries.forEach((entry){
             Utils.render(entry, keyPath, Option);
         })
@@ -108,9 +95,39 @@ Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
     });
 ```
 
-Fetch entry/entries and Render RTE using GraphQL and ‘contentstack utils’ SDK
+### Supercharged (SRTE)
 
-**GraphQL specification is not yet finalized.**
+```dart
+    import 'package:contentstack/contentstack.dart' as contentstack;
+    final stack = contentstack.Stack(apiKey, deliveryToken, environment);
+    final query = stack.contentType('contentTypeUid').entry().query();
+    await query.find().then((response) {
+        var entries = response['entries'];
+        const keyPath = ["rich_text_editor"]
+        entries.forEach((entry){
+            Utils.jsonToHtml(entry, keyPath, Option);
+        })
+    }).catchError((error) {
+        print(error.message.toString());
+    });
+```
+
+### GraphQl SRTE
+
+```dart
+    import 'package:contentstack/contentstack.dart' as contentstack;
+    final stack = contentstack.Stack(apiKey, deliveryToken, environment);
+    final query = stack.contentType('contentTypeUid').entry().query();
+    await query.find().then((response) {
+        var entries = response['entries'];
+        const keyPath = ["rich_text_editor"]
+        entries.forEach((entry){
+            GQL.jsonToHtml(entry, keyPath, Option);
+        })
+    }).catchError((error) {
+        print(error.message.toString());
+    });
+```
 
 ## Features and bugs
 

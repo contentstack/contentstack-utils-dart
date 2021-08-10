@@ -16,3 +16,5 @@ build/
 # Directory created by dartdoc
 doc/api/
 test/.test_coverage.dart/
+/test/mock/supercharged/
+.DS_Store

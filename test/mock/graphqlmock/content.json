@@ -1,0 +1,45 @@
+{
+    "srte": {
+        "json": [{
+            "type": "doc",
+            "attrs": {},
+            "uid": "sameple_uid",
+            "children": [{
+                    "type": "p",
+                    "attrs": {},
+                    "uid": "sameple_uid",
+                    "children": [{
+                        "text": ""
+                    }]
+                },
+                {
+                    "uid": "sameple_uid",
+                    "type": "reference",
+                    "attrs": {
+                        "display-type": "block",
+                        "type": "entry",
+                        "class-name": "embedded-entry redactor-component block-entry",
+                        "entry-uid": "145ae29d7b00e4",
+                        "locale": "en-us",
+                        "content-type-uid": "abcd"
+                    },
+                    "children": [{
+                        "text": ""
+                    }]
+                }
+            ],
+            "_version": 2
+        }],
+        "embedded_itemsConnection": {
+            "edges": [{
+                "node": {
+                    "title": "Abcd Three",
+                    "system": {
+                        "uid": "145ae29d7b00e4",
+                        "content_type_uid": "abcd"
+                    }
+                }
+            }]
+        }
+    }
+}
