@@ -3,10 +3,11 @@
 
 import 'dart:convert' show json;
 import 'dart:io' show File;
-
 import 'package:contentstack_utils/src/gql.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 import 'package:test/test.dart';
+
+import 'mock/supercharged/results/results.dart';
 
 void main() {
   var _entry;
@@ -25,6 +26,13 @@ void main() {
   test('test gql file', () {
     var option = Option();
     GQL.jsonToHTML(_entry, ['srte'], option);
-    expect('sameple_uid', _entry['json'][0]['uid']);
+    expect(Result.GQLSRTE, _entry['srte'][0].toString());
+  });
+
+  test('test graphql srte entry to list', () {
+    var option = Option();
+
+    GQL.jsonToHTML(_entry, ['srte'], option);
+    // expect(Result.GQLSRTE, _entry['srte'][0]);
   });
 }
