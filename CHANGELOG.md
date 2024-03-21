@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.1
+
+Added support for fragment tag in jsonToHtml
+___________________
+
 ## v1.1.0
 
 Implemented SRTE functions: :tada:
