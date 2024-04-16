@@ -145,6 +145,8 @@ class Option {
         return '<h6>' + inner_html + '</h6>';
       case 'ol':
         return '<ol>' + inner_html + '</ol>';
+      case 'fragment':
+        return '<fragment>' + inner_html + '</fragment>';
       case 'ul':
         return '<ul>' + inner_html + '</ul>';
       case 'li':
