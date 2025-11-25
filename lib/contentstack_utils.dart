@@ -1,5 +1,6 @@
 library contentstack_utils;
 
+import 'package:contentstack_utils/src/constants/ErrorMessages.dart';
 import 'package:contentstack_utils/src/helper/Automate.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 export 'src/embedded/StyleType.dart';
@@ -8,14 +9,14 @@ export 'src/helper/Metadata.dart';
 class Utils {
   static void render(jsonObject, List<String> rteKeys, Option option) {
     if (!Automate.isValidJson(jsonObject)) {
-      throw FormatException('Invalid file, Can\'t process the json file');
+      throw FormatException(ErrorMessages.invalidJsonFile);
     }
 
     if (jsonObject is List) {
       for (var entry in jsonObject) {
         render(entry, rteKeys, option);
       }
-    } else if (jsonObject is Map<String, Object>) {
+    } else if (jsonObject is Map) {
       if (jsonObject.containsKey('_embedded_items')) {
         if (rteKeys.isNotEmpty) {
           for (var path in rteKeys) {
@@ -24,8 +25,8 @@ class Utils {
             });
           }
         } else {
-          Map<String, Object> embeddedKeys = jsonObject['_embedded_items'];
-          rteKeys = embeddedKeys.keys.toList();
+          Map embeddedKeys = jsonObject['_embedded_items'] as Map;
+          rteKeys = embeddedKeys.keys.toList().cast<String>();
           embeddedKeys.keys.forEach((keyPath) {
             Automate.find_embed_keys(jsonObject, keyPath, (rteContent) {
               return renderContent(rteContent, jsonObject, option);
@@ -34,7 +35,7 @@ class Utils {
         }
       }
     } else {
-      FormatException('Invalid file for embedded objects');
+      throw FormatException(ErrorMessages.invalidEmbeddedObjectsInput);
     }
   }
 
@@ -69,7 +70,7 @@ class Utils {
 
   static void jsonToHTML(items, List<String> key_path, Option option) {
     if (!Automate.isValidJson(items)) {
-      throw FormatException('Invalid file, Can\'t process the json file');
+      throw FormatException(ErrorMessages.invalidJsonFile);
     }
 
     if (items is List) {
