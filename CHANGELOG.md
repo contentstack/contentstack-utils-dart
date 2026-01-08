@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.1
+
+- Improved error messages
+___________________
+
 ## v1.1.0
 
 Implemented SRTE functions: :tada:
