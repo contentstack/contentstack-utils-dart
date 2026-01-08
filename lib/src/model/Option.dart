@@ -21,8 +21,9 @@ class Option {
 
   static String _findInlineLink(Metadata metadata, Map obj) {
     var _title = '';
-    if (metadata.getText.isNotEmpty) {
-      _title = metadata.getText;
+    var metadataText = metadata.getText;
+    if (metadataText != null && metadataText.isNotEmpty) {
+      _title = metadataText;
     } else if (obj.containsKey('title')) {
       _title = obj['title'];
     } else if (obj.containsKey('uid')) {
@@ -42,8 +43,9 @@ class Option {
 
   static String _findDisplayAtrr(Metadata metadata, Map obj) {
     var _title = '';
-    if (metadata.attributes.isNotEmpty) {
-      _title = metadata.attributes.toString();
+    var metadataAttrs = metadata.attributes;
+    if (metadataAttrs != null && metadataAttrs.isNotEmpty) {
+      _title = metadataAttrs.toString();
     } else if (obj.containsKey('title')) {
       _title = obj['title'];
     } else if (obj.containsKey('filename')) {
@@ -60,7 +62,7 @@ class Option {
   }
 
   String renderOption(Map obj, Metadata metadata) {
-    var style = metadata.styleType;
+    var style = metadata.styleType ?? '';
     switch (style) {
       case 'block':
         var titlOrUid = _findTitleOrUid(obj);

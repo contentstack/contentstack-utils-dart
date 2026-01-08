@@ -48,7 +48,8 @@ void main() {
     final _item = _entryArray['entries'][0];
     final option = Option.entry(_item);
     final result = Utils.renderContent(__stringHtmlEntry, _item, option);
-    logger.i(result);
+    //logger.i(result);
+    expect(result, isNotNull);
   });
 
   test('utils.render pass invalid json to cover exception', () {

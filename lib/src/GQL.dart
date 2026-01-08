@@ -1,10 +1,11 @@
+import 'package:contentstack_utils/src/constants/ErrorMessages.dart';
 import 'package:contentstack_utils/src/helper/Automate.dart';
 import 'package:contentstack_utils/src/model/Option.dart';
 
 class GQL {
   static void jsonToHTML(items, List<String> key_path, Option option) {
     if (!Automate.isValidJson(items)) {
-      throw FormatException('Invalid file, Can\'t process the json file');
+      throw FormatException(ErrorMessages.invalidJsonFile);
     }
 
     if (items is List) {
