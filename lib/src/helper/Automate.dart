@@ -21,13 +21,15 @@ class Automate {
     }
   }
 
-  static Map findEmbeddedItems(Map jsonObject, Metadata metadata) {
+  static Map? findEmbeddedItems(Map jsonObject, Metadata metadata) {
     var keys = jsonObject.keys;
     for (var item in keys) {
       List jsonArray = jsonObject[item];
       var filteredContent = jsonArray
-          .firstWhere((element) => element['uid'] == metadata.getItemUid);
-      return filteredContent;
+          .firstWhere((element) => element['uid'] == metadata.getItemUid, orElse: () => null);
+      if (filteredContent != null) {
+        return filteredContent;
+      }
     }
     return null;
   }
@@ -169,7 +171,7 @@ class Automate {
     }
   }
 
-  static Object findEmbeddedEntry(List jsonList, Metadata metadata) {
+  static Object? findEmbeddedEntry(List jsonList, Metadata metadata) {
     for (var obj in jsonList) {
       if (obj is Map) {
         if (obj['uid'] == metadata.getItemUid) {
@@ -189,8 +191,8 @@ class Automate {
     return null;
   }
 
-  static String getStringOption(Option option, Metadata meta, Map content) {
-    var stringOption = option.renderOption(content, meta);
+  static String getStringOption(Option option, Metadata meta, Object content) {
+    var stringOption = option.renderOption(content as Map, meta);
     return stringOption;
   }
 

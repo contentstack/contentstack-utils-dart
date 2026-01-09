@@ -3,13 +3,13 @@ import 'dart:collection';
 import 'package:html/dom.dart';
 
 class Metadata {
-  String text;
-  String itemType;
-  String itemUid;
-  String contentTypeUid;
-  String styleType;
-  String outerHTML;
-  LinkedHashMap<dynamic, dynamic> attributes;
+  String? text;
+  String? itemType;
+  String? itemUid;
+  String? contentTypeUid;
+  String? styleType;
+  String? outerHTML;
+  LinkedHashMap<dynamic, dynamic>? attributes;
 
   Metadata(
       {this.text,
@@ -20,19 +20,19 @@ class Metadata {
       this.outerHTML,
       this.attributes});
 
-  String get getText => text;
+  String? get getText => text;
 
-  String get getItemType => itemType;
+  String? get getItemType => itemType;
 
-  String get getItemUid => itemUid;
+  String? get getItemUid => itemUid;
 
-  String get getContentTypeUid => contentTypeUid;
+  String? get getContentTypeUid => contentTypeUid;
 
-  String get getStyleType => styleType;
+  String? get getStyleType => styleType;
 
-  String get getOuterHTML => outerHTML;
+  String? get getOuterHTML => outerHTML;
 
-  LinkedHashMap<dynamic, dynamic> get getAttributes => attributes;
+  LinkedHashMap<dynamic, dynamic>? get getAttributes => attributes;
 
   Metadata.element(Element element) {
     text = element.text;
