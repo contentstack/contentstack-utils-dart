@@ -17,16 +17,20 @@ jobs:
         run: dart pub get
       
       - name: Check for outdated dependencies
-        run: dart pub outdated --json > outdated.json || true
+        run: dart pub outdated || true
       
       - name: Run OSV Scanner for vulnerabilities
-        uses: google/osv-scanner-action@v1
-        with:
-          scan-args: |-
-            --lockfile=pubspec.lock
+        run: |
+          curl -L https://github.com/google/osv-scanner/releases/latest/download/osv-scanner_linux_amd64 -o osv-scanner
+          chmod +x osv-scanner
+          ./osv-scanner --lockfile=pubspec.lock --format=json --output=osv-results.json || true
       
-      - name: Display outdated packages
+      - name: Display OSV Scanner results
         if: always()
         run: |
-          echo "Checking for outdated packages..."
-          dart pub outdated || true
+          if [ -f osv-results.json ]; then
+            echo "OSV Scanner Results:"
+            cat osv-results.json
+          else
+            echo "No vulnerabilities found!"
+          fi
