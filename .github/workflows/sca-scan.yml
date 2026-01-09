@@ -6,10 +6,27 @@ jobs:
   security-sca:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - uses: actions/checkout@v4
+      
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
         with:
-          args: --all-projects --fail-on=all
+          sdk: stable
+      
+      - name: Install dependencies
+        run: dart pub get
+      
+      - name: Check for outdated dependencies
+        run: dart pub outdated --json > outdated.json || true
+      
+      - name: Run OSV Scanner for vulnerabilities
+        uses: google/osv-scanner-action@v1
+        with:
+          scan-args: |-
+            --lockfile=pubspec.lock
+      
+      - name: Display outdated packages
+        if: always()
+        run: |
+          echo "Checking for outdated packages..."
+          dart pub outdated || true
