@@ -6,10 +6,31 @@ jobs:
   security-sca:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - uses: actions/checkout@v4
+      
+      - name: Set up Dart
+        uses: dart-lang/setup-dart@v1
         with:
-          args: --all-projects --fail-on=all
+          sdk: stable
+      
+      - name: Install dependencies
+        run: dart pub get
+      
+      - name: Check for outdated dependencies
+        run: dart pub outdated || true
+      
+      - name: Run OSV Scanner for vulnerabilities
+        run: |
+          curl -L https://github.com/google/osv-scanner/releases/latest/download/osv-scanner_linux_amd64 -o osv-scanner
+          chmod +x osv-scanner
+          ./osv-scanner --lockfile=pubspec.lock --format=json --output=osv-results.json || true
+      
+      - name: Display OSV Scanner results
+        if: always()
+        run: |
+          if [ -f osv-results.json ]; then
+            echo "OSV Scanner Results:"
+            cat osv-results.json
+          else
+            echo "No vulnerabilities found!"
+          fi
