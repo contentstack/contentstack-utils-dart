@@ -1,0 +1,6 @@
+# Exclude from published package (see https://dart.dev/go/pubignore).
+.DS_Store
+test/.DS_Store
+test/mock/.DS_Store
+coverage/
+coverage_badge.svg

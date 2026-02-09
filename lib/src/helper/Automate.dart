@@ -63,9 +63,7 @@ class Automate {
       if (availableKeys.length == 1) {
         var varContent = entry[key];
         if (varContent is String || varContent is List || varContent is Map) {
-          if (callback != null) {
-            entry[key] = callback(varContent);
-          }
+          entry[key] = callback(varContent);
         }
       } else {
         availableKeys.remove(key);
