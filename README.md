@@ -36,28 +36,57 @@ Create Render Option:
 To render Embedded objects within RTE create renderOption as follows:
 
 ```dart
-Utils.renderContents(rteArray, localJsonObj, (embeddedObject, metadata) -> {
-    switch (metadata.getStyleType()) {
-        case BLOCK:
-           String title = embeddedObject.getString("title");
-           String multi_line = embeddedObject.getString("multi_line");
-           return "<p>" + title + "</p><span>" + multi_line + "</span>";
-        case INLINE:
-           String titleInline = embeddedObject.getString("title");
-           String mlInline = embeddedObject.getString("multi_line");
-           return "<p>" + titleInline + "</p><span>" + mlInline + "</span>";
-        case LINKED:
-           String titleLinked = embeddedObject.getString("title");
-           String mlLinked = embeddedObject.getString("multi_line");
-           return "<p>" + titleLinked + "</p><span>" + mlLinked + "</span>";
-        case DISPLAY:
-           String titleDiplayable = embeddedObject.getString("title");
-           String mlDiplayable = embeddedObject.getString("multi_line");
-           return "<p>" + titleDiplayable + "</p><span>" + mlDiplayable + "</span>";
-       default:
-           return null;
-   }
-});
+import 'package:contentstack_utils/src/helper/Metadata.dart';
+import 'package:contentstack_utils/src/model/Option.dart';
+
+class OptionDemo implements Option {
+  @override
+  String renderMark(String markType, String renderText) {
+    // TODO: implement renderMark
+    switch (markType) {
+      case 'bold':
+        return '<b>' + renderText + '</b>';
+        break;
+      default:
+        return '';
+    }
+  }
+
+  @override
+  String renderNode(nodeType, Map node_obj, callback) {
+    // TODO: implement renderNode
+    switch (nodeType) {
+      case 'paragraph':
+        String children = callback.renderChildren(node_obj['children']);
+        return "<p class='class-id'>" + children + '</p>';
+        break;
+      default:
+        return '';
+    }
+  }
+
+  @override
+  String renderOption(Map obj, Metadata metadata) {
+    // TODO: implement renderNode
+    switch (metadata.getStyleType) {
+      case 'block':
+        return '<p>' + obj['title'] + '</p><span>' + obj['multi'] + '</span>';
+        break;
+      case 'inline':
+        return '<p>' + obj['title'] + '</p><span>' + obj['line'] + '</span>';
+        break;
+      case 'link':
+        return '<p>' + obj['title'] + '</p><span>' + obj['key'] + '</span>';
+        break;
+      case 'display':
+        return '<p>' + obj['title'] + '</p><span>' + obj['multi'] + '</span>';
+        break;
+      default:
+        return '';
+    }
+  }
+}
+ 
 ```
 
 ## Using Contentstack Utils from Contentstack Dart SDK
