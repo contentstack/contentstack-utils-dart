@@ -1,0 +1,31 @@
+---
+description: Dart standards and contentstack_utils package conventions (pubspec, analysis, imports)
+globs: "**/*.dart"
+---
+
+# Dart Standards – Contentstack Utils (Dart)
+
+Apply these conventions when editing Dart code in this repository.
+
+## Language and SDK
+
+- **SDK constraint:** Honor `environment.sdk` in `pubspec.yaml` (`>=2.12.0 <4.0.0`). Do not use language or API features that require a narrower SDK unless the constraint is updated deliberately.
+
+## Analyzer and formatting
+
+- **Analyzer:** Lints flow through `analysis_options.yaml` (includes `package:pedantic/analysis_options.yaml` today). Fix analyzer warnings in new code; do not silence rules project-wide without team agreement.
+- **Formatting:** Run `dart format .` before PRs.
+
+## Package layout and naming
+
+- **Library code:** Under `lib/` — barrel `lib/contentstack_utils.dart`, implementation under `lib/src/` (`helper/`, `model/`, `embedded/`, `constants/`).
+- **File naming:** `PascalCase.dart` under `lib/src/`; tests use `snake_case_test.dart` under `test/`.
+
+## Imports
+
+- Prefer **`package:contentstack_utils/...`** for library code. Tests may import the barrel and specific `src/` paths (e.g. `package:contentstack_utils/src/helper/Automate.dart`) when exercising internals—match existing tests.
+
+## Dependencies
+
+- **Runtime** (`dependencies`): `path`, `html`, `logger`, `lint` (see `pubspec.yaml`). Do not add heavy or redundant packages without review.
+- **Types:** JSON is often `Map`/`dynamic`; new code should improve safety where practical without large breaking refactors—follow `lib/src/helper/Automate.dart` and `lib/src/model/Option.dart`.

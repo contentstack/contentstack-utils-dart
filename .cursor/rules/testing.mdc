@@ -1,0 +1,27 @@
+---
+description: package:test patterns, test/mock fixtures, coverage, offline tests
+globs: "test/**"
+---
+
+# Testing Rules – Contentstack Utils (Dart)
+
+Apply when writing or editing tests. The project uses **`package:test`** (see `pubspec.yaml`).
+
+## Test naming and layout
+
+- **Files:** `*_test.dart` in `test/` (e.g. `utils_test.dart`, `gql_test.dart`, `option_test.dart`).
+- **Fixtures:** JSON under **`test/mock/`** (`embedded_items.json`, `graphqlmock/`, `supercharged/`, etc.). Load with `dart:io` **`File`** and **`dart:convert`** as existing tests do.
+- **No network:** All tests are offline and deterministic; no API keys or live stack calls.
+
+## Running tests
+
+- **All tests:** `dart test` from the repo root.
+
+## Coverage
+
+- Artifacts may include **`coverage/`**, **`coverage/lcov.info`**, **`coverage_badge.svg`**. Use `dart test --coverage=coverage` when regenerating; align with team process for **`genhtml`** / badge updates.
+- **`test/.test_coverage.dart`** aggregates suites for legacy **`test_coverage`** workflows; update when adding tests if that flow is still used.
+
+## What to cover
+
+- **`Utils`**, **`GQL`**, **`Option`**, **`Automate.isValidJson`**, and fixture shapes that match Delivery / GQL payloads.

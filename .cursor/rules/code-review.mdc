@@ -1,0 +1,35 @@
+---
+description: PR and code review checklist – API stability, errors, compatibility, security, tests
+alwaysApply: true
+---
+
+# Code Review Checklist – Contentstack Utils (Dart)
+
+Use this checklist when reviewing pull requests or before opening a PR.
+
+## API design and stability
+
+- [ ] **Public API:** New or changed public methods/classes on **`Utils`**, **`GQL`**, **`Option`**, or exports from **`lib/contentstack_utils.dart`** are necessary and reflected in **`README.md`** / **`CHANGELOG.md`** when user-facing.
+- [ ] **Backward compatibility:** No breaking changes to public API unless explicitly called out and justified (e.g. major version in **`pubspec.yaml`**).
+- [ ] **Naming:** Method names match existing style (**`jsonToHTML`**, **`render`**, **`renderContent`**). **`GQL`** stays importable from **`package:contentstack_utils/src/GQL.dart`** for **`package:contentstack`** consumers.
+
+## Error handling and robustness
+
+- [ ] **Errors:** Invalid JSON or embedded structures throw **`FormatException`** with **`ErrorMessages`** (or documented behavior); no silent failures on bad RTE JSON.
+- [ ] **Consistency:** User-facing strings go through **`ErrorMessages`** in **`lib/src/constants/ErrorMessages.dart`** where the rest of the library uses constants.
+
+## Dependencies and security
+
+- [ ] **Dependencies:** No new dependencies without justification; version bumps are intentional and reviewed against **`.github/workflows/sca-scan.yml`** (OSV on **`pubspec.lock`**, **`dart pub outdated`**).
+- [ ] **SCA:** Address or track security findings from dependency or scanner output in the PR scope when applicable.
+
+## Testing
+
+- [ ] **Coverage:** New or modified behavior is covered by tests under **`test/`** using **`test/mock/`** fixtures where appropriate.
+- [ ] **Test quality:** Tests are readable, stable, and follow **`*_test.dart`** layout; no flakiness or live network calls.
+
+## Severity (optional)
+
+- **Blocker:** Must fix before merge (e.g. breaking public API without approval, security issue, no tests for new code).
+- **Major:** Should fix (e.g. inconsistent error handling, missing changelog for user-visible change).
+- **Minor:** Nice to fix (e.g. style, minor docs).
