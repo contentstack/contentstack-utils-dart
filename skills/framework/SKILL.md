@@ -1,47 +1,45 @@
 ---
 name: framework
-description: Use when touching pubspec/lockfile, analysis_options, CI security scans, or shared runtime deps (html, logger, path)
+description: Use when touching pubspec/lockfile, analysis_options, CI security workflows, or shared runtime deps (html, logger, path)
 ---
 
-# Framework – Contentstack Utils (Dart)
-
-Use this skill when changing project tooling, dependencies, or CI security configuration. This package has **no** HTTP client or retry layer (unlike full CDA SDKs); “framework” here means **Pub**, **analyzer/lint**, **CI**, and **shared libraries** used by `lib/`.
+# Framework and tooling – Contentstack Utils (Dart)
 
 ## When to use
 
 - Bumping or adding dependencies in **`pubspec.yaml`** / **`pubspec.lock`**.
-- Fixing or updating **`analysis_options.yaml`** (e.g. pedantic/lints includes).
-- Changing **`.github/workflows/sca-scan.yml`** or other security-related CI.
-- Refactoring use of **`package:html`**, **`package:logger`**, or **`package:path`** across helpers.
+- Changing **`analysis_options.yaml`** or lint includes.
+- Editing **`.github/workflows/sca-scan.yml`**, **`.github/workflows/publish.yml`**, or policy-related CI.
+- Refactoring shared library usage (**`package:html`**, **`package:logger`**, **`package:path`**) across **`lib/`**.
+
+This package has **no** HTTP client, retries, or native modules — only Pub, analyzer, CI, and the runtime libraries listed in **`pubspec.yaml`**.
 
 ## Instructions
 
 ### Pub
 
-- **Install:** `dart pub get`.
+- **Install:** **`dart pub get`**.
 - **Lockfile:** Commit **`pubspec.lock`** for reproducible builds and OSV scanning.
-- Before merging dep changes: run **`dart test`** and **`dart analyze .`**.
+- Before merging dep changes: **`dart test`** and **`dart analyze .`**.
 
 ### Analysis and lint
 
-- **`analysis_options.yaml`** must resolve included packages (e.g. pedantic/lints). Coordinate with the team before switching lint sets.
-- **Runtime vs dev:** Keep **`dependencies`** minimal (`path`, `html`, `logger`, `lint`); **`dev_dependencies`** for `test`, `lints`.
+- **`analysis_options.yaml`** must resolve included packages; align **`lint`** / **`lints`** with the team before large policy changes.
+- **Runtime deps:** `path`, `html`, `logger`, `lint` — keep minimal.
+- **Dev:** `test`, `lints`.
 
 ### CI security
 
-- **`.github/workflows/sca-scan.yml`:** `dart pub outdated`, OSV scanner on **`pubspec.lock`**. Review output on dependency PRs.
-- **`.github/workflows/policy-scan.yml`:** **`SECURITY.md`** and **`LICENSE`** for public repos.
+- **`.github/workflows/sca-scan.yml`:** **`dart pub outdated`**, OSV on **`pubspec.lock`**.
+- **`.github/workflows/policy-scan.yml`:** **`SECURITY.md`**, **`LICENSE`** (public repos).
 
 ### Publishing
 
-- **`.github/workflows/publish.yml`:** Publishes on **`v*.*.*`** tags. Do not publish from broken analyzer or untested dependency states.
-
-## Key files
-
-- **`pubspec.yaml`**, **`pubspec.lock`**, **`analysis_options.yaml`**
-- **`.github/workflows/sca-scan.yml`**, **`.github/workflows/publish.yml`**
+- **`.github/workflows/publish.yml`:** tag pattern **`v*.*.*`**, **`dart pub publish`** after dry-run.
 
 ## References
 
-- Project rules: `.cursor/rules/dart.mdc`, `.cursor/rules/code-review.mdc`
-- CDA behavior (not deps): `skills/contentstack-utils/SKILL.md`
+- **`skills/dart/SKILL.md`** — everyday Dart conventions
+- **`skills/code-review/SKILL.md`** — dependency / security review
+- **`skills/contentstack-utils/SKILL.md`** — API behavior (orthogonal to version bumps)
+- **`AGENTS.md`** — workflow file pointers

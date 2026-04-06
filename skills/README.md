@@ -1,21 +1,16 @@
 # Skills – Contentstack Utils (Dart)
 
-This directory contains **skills**: reusable guidance for AI agents (and developers) on specific tasks. Each skill is a folder with a `SKILL.md` file.
+Source of truth for detailed guidance. Read **`AGENTS.md`** first, then open the skill that matches your task.
 
 ## When to use which skill
 
-| Skill | Use when |
-|-------|----------|
-| **contentstack-utils** | Implementing or changing RTE rendering, embedded items, Supercharged or GQL SRTE, `Utils` / `GQL` / `Option`, `FormatException` / `ErrorMessages`, alignment with `package:contentstack`. |
-| **testing** | Writing or refactoring tests: `dart test`, `*_test.dart`, `test/mock/` fixtures, coverage, offline-only tests. |
-| **code-review** | Reviewing a PR or preparing your own: API design, backward compatibility, dependencies/security, test coverage. |
-| **framework** | Touching `pubspec.yaml` / `pubspec.lock`, `analysis_options.yaml`, CI security workflows (OSV, outdated), or shared implementation deps (`html`, `logger`, `path`). |
+| Skill folder | Use when |
+|--------------|----------|
+| `dev-workflow` | Branches, CI expectations, build/test/lint commands, PR process, optional TDD |
+| `contentstack-utils` | Public API (`Utils`, `GQL`, `Option`), RTE/embedded JSON, `FormatException` / `ErrorMessages` |
+| `dart` | Dart version constraints, `lib/` layout, imports, analyzer/format, package naming |
+| `testing` | Writing tests, `test/mock/` fixtures, coverage, no live credentials |
+| `code-review` | Reviewing or preparing a PR — API stability, security, tests |
+| `framework` | `pubspec` / lockfile, `analysis_options.yaml`, CI scans (OSV), shared runtime libraries |
 
-## How agents should use skills
-
-- **contentstack-utils:** Apply when editing `lib/**` or public API behavior. Follow `Utils` / `GQL` / `Option` contracts and existing error patterns.
-- **testing:** Apply when creating or modifying tests under `test/`. Use `test/mock/` JSON and match existing test style.
-- **code-review:** Apply when performing or simulating a PR review. Go through the checklist (API stability, errors, compatibility, dependencies, tests) and optional severity levels.
-- **framework:** Apply when changing dependencies, analyzer config, or CI security steps. Keep the package lean and SCA-friendly.
-
-Each skill’s `SKILL.md` contains more detailed instructions and references.
+Each folder contains **`SKILL.md`** with YAML frontmatter (`name`, `description`).

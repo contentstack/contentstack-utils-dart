@@ -1,51 +1,48 @@
-# Contentstack Utils (Dart) – Agent Guide
+# Contentstack Utils (Dart) – Agent guide
 
-This document is the main entry point for AI agents working in this repository.
+**Universal entry point** for contributors and AI agents. Detailed conventions live in **`skills/*/SKILL.md`**.
 
-## Project
+## What this repo is
 
-- **Name:** Contentstack Utils for Dart (`contentstack_utils` on pub.dev)
-- **Purpose:** Dart utilities to **render rich text and embedded entries** from Contentstack **Delivery JSON** (classic RTE, Supercharged RTE, and GraphQL-shaped SRTE). Used with **`package:contentstack`**; this package does **not** perform HTTP calls or manage API keys.
-- **Repo:** [contentstack-utils-dart](https://github.com/contentstack/contentstack-utils-dart)
+| Field | Detail |
+|-------|--------|
+| **Name:** | [contentstack-utils-dart](https://github.com/contentstack/contentstack-utils-dart) — pub package **`contentstack_utils`** |
+| **Purpose:** | Dart utilities to render rich text and embedded entries from Contentstack **Delivery JSON** (classic RTE, Supercharged RTE, and GraphQL-shaped SRTE). Typically used with **`package:contentstack`**. |
+| **Out of scope (if any):** | **No HTTP client** — no stack calls, API keys, delivery tokens, or retries. Network and auth belong in the [Contentstack Dart SDK](https://pub.dev/packages/contentstack). |
 
-## Tech stack
+## Tech stack (at a glance)
 
-- **Language:** Dart (see `environment.sdk` in `pubspec.yaml`)
-- **Build:** Pub (`dart pub`)
-- **Testing:** `package:test` (`dart test`)
-- **Lint / analysis:** `analysis_options.yaml` (verify includes resolve with `dart analyze`)
-- **Other:** `path`, `html`, `logger`, `lint` (runtime deps in `pubspec.yaml`)
+| Area | Details |
+|------|---------|
+| **Language** | Dart — `environment.sdk` in `pubspec.yaml` (`>=2.12.0 <4.0.0`) |
+| **Build** | Pub — `pubspec.yaml`, `pubspec.lock` |
+| **Tests** | `package:test` — `dart test`; files `test/*_test.dart` |
+| **Lint / coverage** | `analysis_options.yaml`; coverage under `coverage/` / `lcov.info` when generated |
+| **Other** | Runtime deps: `path`, `html`, `logger`, `lint` (see `pubspec.yaml`) |
 
-## Main entry points
+## Commands (quick reference)
 
-- **`Utils`** – `lib/contentstack_utils.dart`: `render`, `renderContent`, `jsonToHTML`; exports **`Metadata`**, **`StyleType`**.
-- **`Option`** – `lib/src/model/Option.dart`: `renderOption`, `Option.entry`.
-- **`GQL`** – `lib/src/GQL.dart`: `jsonToHTML` for GraphQL SRTE (import explicitly; not re-exported from barrel).
-- **Paths:** `lib/` (package root + `lib/src/`), `test/` (`*_test.dart`), `example/example.dart`.
+| Command type | Command |
+|--------------|---------|
+| **Build** | `dart pub get` |
+| **Test** | `dart test` |
+| **Lint** | `dart analyze .` and `dart format .` |
 
-## Commands
+**CI:** branch policy — `.github/workflows/check-branch.yml`; SCA — `.github/workflows/sca-scan.yml`; publish on tags — `.github/workflows/publish.yml`.
 
-- **Dependencies:** `dart pub get`
-- **Analyze and format:** `dart analyze .` and `dart format .`
-- **Tests:** `dart test`
+## Where the documentation lives: skills
 
-Publishing (maintainers): tag-driven **`dart pub publish`** — see `.github/workflows/publish.yml`.
+| Skill | Path | What it covers |
+|-------|------|----------------|
+| **Development workflow** | `skills/dev-workflow/SKILL.md` | Branches, CI, commands, PR expectations, optional TDD |
+| **Contentstack Utils API** | `skills/contentstack-utils/SKILL.md` | `Utils`, `GQL`, `Option`, RTE/embedded JSON, errors, boundaries with `package:contentstack` |
+| **Dart** | `skills/dart/SKILL.md` | Dart SDK, `lib/` layout, imports, analyzer, naming |
+| **Testing** | `skills/testing/SKILL.md` | `package:test`, `test/mock/`, coverage, offline-only tests |
+| **Code review** | `skills/code-review/SKILL.md` | PR checklist, Blocker / Major / Minor |
+| **Framework / tooling** | `skills/framework/SKILL.md` | `pubspec`, lockfile, `analysis_options.yaml`, CI security, shared deps (`html`, `logger`) |
 
-CI: branch rules (`.github/workflows/check-branch.yml`), SCA (`.github/workflows/sca-scan.yml`), policy (`.github/workflows/policy-scan.yml`).
+An index with “when to use” hints is in `skills/README.md`.
 
-## Rules and skills
+## Using Cursor (optional)
 
-- **`.cursor/rules/`** – Cursor rules for this repo:
-  - **README.md** – Index of all rules.
-  - **dev-workflow.md** – Development workflow (branches, tests, PRs).
-  - **dart.mdc** – Applies to `**/*.dart`: Dart SDK, pub, analysis, imports.
-  - **contentstack-utils.mdc** – Applies to `lib/**`: `Utils`, `GQL`, `Option`, RTE/embedded JSON, errors.
-  - **testing.mdc** – Applies to `test/**`: `package:test`, fixtures, coverage.
-  - **code-review.mdc** – Always applied: PR/review checklist.
-- **`skills/`** – Reusable skill docs:
-  - Use **contentstack-utils** when implementing or changing RTE rendering, `GQL`, `Option`, or `ErrorMessages`.
-  - Use **testing** when adding or refactoring tests.
-  - Use **code-review** when reviewing PRs or before opening one.
-  - Use **framework** when changing `pubspec`/lockfile, analysis/lint setup, CI security scans, or shared runtime deps (`html`, `logger`).
-
-Refer to `.cursor/rules/README.md` for when each rule applies and to `skills/README.md` for skill details.
+If you use **Cursor**, `.cursor/rules/README.md` only points to **`AGENTS.md`** — same docs as everyone else.

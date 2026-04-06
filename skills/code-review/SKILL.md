@@ -1,58 +1,46 @@
 ---
 name: code-review
-description: Use when reviewing PRs or before opening a PR – API design, backward compatibility, dependencies, security, and test quality
+description: Use when reviewing PRs or before opening a PR — API design, backward compatibility, dependencies, security, tests
 ---
 
-# Code Review – Contentstack Utils (Dart)
-
-Use this skill when performing or preparing a pull request review for this package.
+# Code review – Contentstack Utils (Dart)
 
 ## When to use
 
-- Reviewing someone else’s PR.
-- Self-reviewing your own PR before submission.
-- Checking that changes meet project standards (API, errors, compatibility, tests, security).
+- Reviewing a teammate’s PR or self-review before submit.
+- Verifying API stability, errors, semver, SCA, and test coverage.
 
 ## Instructions
 
-Work through the checklist below. Optionally tag items with severity: **Blocker**, **Major**, **Minor**.
+### API design and stability
 
-### 1. API design and stability
+- [ ] **Public API:** Changes to **`Utils`**, **`GQL`**, **`Option`**, or barrel exports are documented in **`README.md`** / **`CHANGELOG.md`** when user-facing.
+- [ ] **Backward compatibility:** Breaking changes require explicit semver / changelog; **`GQL`** remains importable from **`package:contentstack_utils/src/GQL.dart`** for downstream SDKs.
+- [ ] **Naming:** Matches existing methods (**`jsonToHTML`**, **`render`**, **`renderContent`**).
 
-- [ ] **Public API:** New or changed **`Utils`**, **`GQL`**, **`Option`**, or barrel exports are necessary and documented in **`README.md`** / **`CHANGELOG.md`** when user-facing.
-- [ ] **Backward compatibility:** No breaking changes unless agreed (semver + changelog). **`GQL`** import path remains **`package:contentstack_utils/src/GQL.dart`** for downstream SDKs.
-- [ ] **Naming:** Consistent with existing methods (**`jsonToHTML`**, **`render`**, **`renderContent`**).
+### Error handling
 
-**Severity:** Breaking public API without approval = Blocker. Missing changelog for user-visible change = Major.
+- [ ] Invalid JSON / embedded input throws **`FormatException`** with **`ErrorMessages`** (or documented behavior); no silent failures.
+- [ ] Strings use **`ErrorMessages`** in **`lib/src/constants/ErrorMessages.dart`** where the library already centralizes them.
 
-### 2. Error handling and robustness
+### Dependencies and security
 
-- [ ] **Errors:** Invalid input uses **`FormatException`** and **`ErrorMessages`** where the library already does.
-- [ ] **Consistency:** No ad hoc error strings where **`ErrorMessages`** constants exist.
+- [ ] New or upgraded deps are justified; **`pubspec.lock`** updated intentionally.
+- [ ] Consider **`.github/workflows/sca-scan.yml`** (OSV, **`dart pub outdated`**) on dependency PRs.
 
-**Severity:** Silent failure on bad JSON = Blocker.
+### Testing
 
-### 3. Dependencies and security
+- [ ] **`dart test`** passes; new behavior covered under **`test/`** with **`test/mock/`** where appropriate.
+- [ ] No flaky or network-dependent tests.
 
-- [ ] **Dependencies:** Bumps justified; **`pubspec.lock`** updated intentionally.
-- [ ] **SCA:** OSV / outdated findings considered on dependency PRs.
+### Severity (optional)
 
-**Severity:** Known critical vulnerability introduced = Blocker.
-
-### 4. Testing
-
-- [ ] **Coverage:** New behavior has tests under **`test/`** with **`test/mock/`** fixtures as appropriate.
-- [ ] **Quality:** Tests are readable and offline-only (no flakiness).
-
-**Severity:** No tests for new behavior = Blocker.
-
-### 5. Optional severity summary
-
-- **Blocker:** Must fix before merge (e.g. breaking API without approval, security issue, no tests for new code).
-- **Major:** Should fix (e.g. inconsistent errors, missing docs).
-- **Minor:** Nice to fix (e.g. style, minor comments).
+- **Blocker:** Breaking public API without approval, security regression, no tests for new code.
+- **Major:** Inconsistent errors, missing changelog for user-visible change.
+- **Minor:** Style, small doc nits.
 
 ## References
 
-- Project rule: `.cursor/rules/code-review.mdc`
-- Testing skill: `skills/testing/SKILL.md`
+- **`skills/testing/SKILL.md`** — test expectations
+- **`skills/contentstack-utils/SKILL.md`** — public API surface
+- **`AGENTS.md`** — lint/test commands
