@@ -1,4 +1,10 @@
-# A Contentstack-Utils library for Dart developers
+# ![Contentstack](https://www.contentstack.com/docs/static/images/contentstack.png)
+
+## Important: Dart Utils and pub.dev
+
+**We are deprecating** the **Contentstack Utils** Dart package on pub.dev as the supported path for **new** development. **New Dart or Flutter projects should use the [Content Delivery API](https://www.contentstack.com/docs/developers/apis/content-delivery-api/)** and your own handling for rich text / JSON RTE, following current documentation.
+
+**Already using this package?** You can keep shipping with your current dependencies and migrate when it makes sense for your app. More detail: **[DEPRECATION.md](DEPRECATION.md)**.
 
 ![Coverage](https://github.com/contentstack/contentstack-utils-dart/blob/master/coverage_badge.svg?sanitize=true)
 
