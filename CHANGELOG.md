@@ -6,8 +6,11 @@
 
 - Add deprecation notice and migration guidance to the Content Delivery API. See [DEPRECATION.md](DEPRECATION.md).
 
-## v1.1.1
+## 2.0.0
 
+- Dart 3 compatible (SDK `>=2.12.0 <4.0.0`)
+- Improved error messages and publish workflow
+- Test fixes and mock data for supercharged/GQL tests
 - Improved error messages
 ___________________
 
