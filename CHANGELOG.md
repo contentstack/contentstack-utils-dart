@@ -1,4 +1,10 @@
-# Changelog
+# CHANGELOG
+
+### **APR-09-2026**
+
+#### Documentation
+
+- Add deprecation notice and migration guidance to the Content Delivery API. See [DEPRECATION.md](DEPRECATION.md).
 
 ## v1.1.1
 
