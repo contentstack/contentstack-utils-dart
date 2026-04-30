@@ -28,7 +28,7 @@
 | **Test** | `dart test` |
 | **Lint** | `dart analyze .` and `dart format .` |
 
-**CI:** branch policy — `.github/workflows/check-branch.yml`; SCA — `.github/workflows/sca-scan.yml`; publish on tags — `.github/workflows/publish.yml`.
+**CI:** feature/fix PRs target `development`, release PRs target `master` from `development`; SCA — `.github/workflows/sca-scan.yml`; publish on GitHub **Release** (`release: created`, tag `v*`) via `.github/workflows/publish.yml`; manual **workflow_dispatch** runs dry-run only; back-merge automation — `.github/workflows/back-merge-pr.yml`.
 
 ## Where the documentation lives: skills
 
