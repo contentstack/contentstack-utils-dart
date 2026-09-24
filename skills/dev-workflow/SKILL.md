@@ -17,7 +17,7 @@ description: Use when branching, running CI-related commands, opening PRs, or de
 ### Branches
 
 - Use feature branches (e.g. `feat/...`, `fix/...`).
-- **`.github/workflows/check-branch.yml`** blocks PRs into **`master`** unless the head branch is **`staging`**. Prefer PRs against **`staging`** per team policy.
+- Feature/fix PRs should target **`development`**. Release PRs are raised directly from **`development`** to **`master`**.
 
 ### Commands
 
@@ -40,7 +40,7 @@ Run **`dart analyze .`** and **`dart test`** before requesting review. There are
 
 ### Publishing (maintainers)
 
-- **`.github/workflows/publish.yml`** — publish on tags matching `v*.*.*` via **`dart pub publish`** (after dry-run in workflow).
+- **`.github/workflows/publish.yml`** — on **`release: types: [created]`** for tag **`v*`** (draft releases skipped), checks out the tag, then **`dart pub publish --dry-run`** and **`dart pub publish`**. **Manual** `workflow_dispatch` runs **dry-run only** (separate job).
 
 ### Optional TDD
 

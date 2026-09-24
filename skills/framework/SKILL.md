@@ -35,7 +35,7 @@ This package has **no** HTTP client, retries, or native modules — only Pub, an
 
 ### Publishing
 
-- **`.github/workflows/publish.yml`:** tag pattern **`v*.*.*`**, **`dart pub publish`** after dry-run.
+- **`.github/workflows/publish.yml`:** GitHub **Release** (`release: created`) for tag **`v*`**; **`dart pub publish`** after dry-run. Manual trigger: dry-run job only.
 
 ## References
 
